@@ -72,11 +72,11 @@ const HeroSection = () => {
             animate="visible"
             custom={0.8}
             variants={itemVariants}
-            className="mb-6 max-w-2xl font-light text-white md:text-lg lg:mb-10 lg:text-xl"
+            className="mb-6 max-w-xl font-light text-white md:text-lg lg:mb-10 lg:text-xl"
           >
-            Apasionado desarrollador web y aplicaciones, comprometido en crear
-            aplicaciones funcionales que transformen la experiencia digital con
-            innovación y dedicación.
+            Apasionado desarrollador especializado en web y aplicaciones,
+            dedicado a crear soluciones digitales innovadoras que transformen la
+            experiencia de usuario.
           </motion.p>
 
           <div className="flex items-center gap-3">

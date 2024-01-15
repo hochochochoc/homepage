@@ -5,7 +5,7 @@ const Footer = ({ onSectionClick, sectionRefs }) => {
         <div className="my-2 h-20 w-20 rounded-full">
           <img
             className="rounded-full"
-            src="/logos/jannik_riegel_logo.avif"
+            src="/logos/jannik_riegel_logo.png"
             alt="logo"
             style={{ maxHeight: "70px" }}
           />
