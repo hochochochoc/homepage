@@ -22,7 +22,7 @@ const Header = ({ onSectionClick, sectionRefs }) => {
       }}
     >
       <nav className="mx-auto flex items-center justify-between px-4 py-4 text-white md:w-[87%] md:px-0">
-        <div>
+        <div className="ml-10">
           <img
             src="/logos/jannik_riegel_logo.png"
             alt="Logo"
