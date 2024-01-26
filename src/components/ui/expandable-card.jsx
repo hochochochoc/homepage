@@ -58,13 +58,13 @@ export function ExpandableCardDemo({ projectCards }) {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="flex h-full w-full max-w-[500px] flex-col overflow-hidden bg-sky-50 dark:bg-neutral-900 sm:rounded-3xl md:h-fit md:max-h-[90%]"
+              className="flex h-full w-full max-w-[600px] flex-col overflow-hidden bg-sky-50 dark:bg-neutral-900 sm:rounded-3xl md:h-fit md:max-h-[90%]"
             >
               <motion.div layoutId={`image-${active.title}-${id}`}>
                 <img
                   src={active.src}
                   alt={active.title}
-                  className="h-80 w-full object-cover object-top sm:rounded-tl-lg sm:rounded-tr-lg lg:h-80"
+                  className="lg:h-90 h-90 w-full object-cover object-top sm:rounded-tl-lg sm:rounded-tr-lg"
                 />
               </motion.div>
 

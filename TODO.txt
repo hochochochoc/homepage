@@ -1,56 +1,19 @@
 
-// Skills Section
-// Make each card the same size -- done
-// Make the text appear always at the same height -- done
-// Correct capitalization -- done
-// Effect of making them appear
+// Skills to add
 
-// Education Section
-// Insert my education -- done
-// Make them load flying in etc.
-
-// Contact Section
-// Make it actually work so someone can send me an email -- done
-// That swish effect on the button
+// Figma
+// Responsive design
+// 
 
 
 
 
+// That crap to convert react to an actual app in the appstore
+// MVC (Model-View-Controller)
+// Diseño y desarrollo de APIs REST, preferentemente con NET Core 8
+// Uso de containers, docker, docker compose
+// Lenguaje SQL y base de datos MySQL/MariaDB
+// Git Flow
 
-// TODO 13.01.
-
-
-//  Effects if time -- done
-//  Commits
-//  README
-
-//  Footer -- done
-//  Header -- done
-//  My projects Section -- done
-//  Experience Section -- done
-//  Upload to Vercel -- done
-
-
-
-// Projects Section
-// Actually insert projects -- done
-// use better cards from that library -- done
-// Update texts -- done
-// Formate images -- done
-// Make links work -- done
-// Update used technologies -- done
-
-// Hero Section
-// Links -- done
-// Download pdf -- done
-
-// Footer Section
-// Adjust sizes etc. -- done
-// Make the links actually work -- done
-
-// Header Section
-// Just create it to begin with -- done
-
-// Experience Section
-// Insert my experiences -- done
-// Update texts -- done
+// metodologías ágiles
+// Conocimientos de Jira y Confluence
