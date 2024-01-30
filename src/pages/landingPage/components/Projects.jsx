@@ -69,7 +69,7 @@ const ProjectsSection = () => {
       },
     },
     {
-      description: "React • Radix • shadcn/ui • Tailwind",
+      description: "React • React Native • Radix • shadcn/ui • Tailwind",
       title: "CS50 Gym Tracker",
       src: "/cs50_gymtracker.png",
       ctaText: "Ver Más",
@@ -103,7 +103,8 @@ const ProjectsSection = () => {
       },
     },
     {
-      description: "React • Next.js • ml5.js • Tailwind • SQL",
+      description:
+        "React • Next.js • ml5.js • OpenAI API • TypeScript • Tailwind • Node.js • SQL • MySQL • Github • Vercel",
       title: "AI Form Assistant",
       src: "/ai_form_assistant.png",
       ctaText: "Ver Más",
@@ -116,7 +117,7 @@ const ProjectsSection = () => {
               su técnica de ejercicio en el gimnasio.
               <br />
               <br />
-              <p className="text-center">***En Desarrollo***</p>
+              <p className="text-center"></p>
             </p>
             <div className="mt-4 flex gap-3">
               <a

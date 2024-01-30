@@ -3,7 +3,6 @@ import { GraduationCap } from "lucide-react";
 import { motion } from "framer-motion";
 
 const SkillsSection = () => {
-  // Function to handle special case capitalizations
   const formatSkillName = (skill) => {
     const specialCases = {
       html: "HTML",
@@ -19,7 +18,15 @@ const SkillsSection = () => {
       git: "Git",
       github: "GitHub",
       jest: "Jest",
+      cloud_vision: "Cloud Vision API",
+      google_maps: "Google Maps API",
+      openai: "OpenAI API",
+      vercel: "Vercel",
+      heroku: "Heroku",
+      aws: "AWS",
+      redux: "Redux",
       react: "React",
+      react_native: "React Native",
       bootstrap: "Bootstrap",
       tailwind: "Tailwind",
     };
@@ -56,7 +63,6 @@ const SkillsSection = () => {
             strokeWidth={2.5}
             className="mb-3 mr-2 inline-block text-blue-600"
           />
-
           <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
             Mis Skills
           </span>
@@ -76,6 +82,7 @@ const SkillsSection = () => {
         <div className="flex flex-wrap items-center justify-center gap-4">
           {[
             "react",
+            "react_native",
             "next.js",
             "ts",
             "js",
@@ -84,6 +91,7 @@ const SkillsSection = () => {
             "bootstrap",
             "tailwind",
             "sass",
+            "redux",
           ].map((skill) => (
             <motion.div
               key={skill}
@@ -145,41 +153,121 @@ const SkillsSection = () => {
         </div>
       </motion.div>
 
-      <h3 className="mb-5 mt-10 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
-        Otros
-      </h3>
-      <motion.div
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="container mx-auto"
-      >
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          {["git", "github", "jest"].map((skill) => (
-            <motion.div
-              key={skill}
-              variants={itemVariants}
-              className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
-            >
-              <div className="flex h-full flex-col justify-between">
-                <div className="skill-inner flex flex-col justify-between p-2">
-                  <div className="icon-skill flex h-24 items-center justify-center">
-                    <img
-                      src={`/logos/logo_${skill}.svg`}
-                      alt={`logo_${skill}`}
-                      className="max-h-full max-w-full object-contain"
-                    />
+      <div className="mt-10 flex flex-wrap justify-center gap-8">
+        <div className="w-full md:w-2/5">
+          <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
+            Testing y Control de Versiones
+          </h3>
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="container mx-auto"
+          >
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {["git", "github", "jest"].map((skill) => (
+                <motion.div
+                  key={skill}
+                  variants={itemVariants}
+                  className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
+                >
+                  <div className="flex h-full flex-col justify-between">
+                    <div className="skill-inner flex flex-col justify-between p-2">
+                      <div className="icon-skill flex h-24 items-center justify-center">
+                        <img
+                          src={`/logos/logo_${skill}.svg`}
+                          alt={`logo_${skill}`}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                      <div className="mt-2 hidden justify-center text-center group-hover:flex">
+                        {formatSkillName(skill)}
+                      </div>
+                    </div>
                   </div>
-                  <div className="mt-2 hidden justify-center text-center group-hover:flex">
-                    {formatSkillName(skill)}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+
+        <div className="w-full md:w-1/2">
+          <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
+            APIs
+          </h3>
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="container mx-auto"
+          >
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {["cloud_vision", "google_maps", "openai"].map((skill) => (
+                <motion.div
+                  key={skill}
+                  variants={itemVariants}
+                  className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
+                >
+                  <div className="flex h-full flex-col justify-between">
+                    <div className="skill-inner flex flex-col justify-between p-2">
+                      <div className="icon-skill flex h-24 items-center justify-center">
+                        <img
+                          src={`/logos/logo_${skill}.svg`}
+                          alt={`logo_${skill}`}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                      <div className="mt-2 hidden justify-center text-center group-hover:flex">
+                        {formatSkillName(skill)}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="w-full md:w-2/5">
+          <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
+            Cloud y Despliegue
+          </h3>
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="container mx-auto"
+          >
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {["vercel", "heroku", "aws"].map((skill) => (
+                <motion.div
+                  key={skill}
+                  variants={itemVariants}
+                  className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
+                >
+                  <div className="flex h-full flex-col justify-between">
+                    <div className="skill-inner flex flex-col justify-between p-2">
+                      <div className="icon-skill flex h-24 items-center justify-center">
+                        <img
+                          src={`/logos/logo_${skill}.svg`}
+                          alt={`logo_${skill}`}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                      <div className="mt-2 hidden justify-center text-center group-hover:flex">
+                        {formatSkillName(skill)}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 };
