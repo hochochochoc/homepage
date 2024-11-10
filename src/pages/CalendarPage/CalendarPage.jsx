@@ -1,24 +1,17 @@
 import React, { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Calendar } from "@/components/ui/calendar";
 
-export default function GymPage() {
-  const headlines = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+import { isFuture } from "date-fns";
+
+export default function CalendarPage() {
   const [daySelected, setDaySelected] = useState(false);
   const navigate = useNavigate();
-
-  // Function to chunk array into pairs
-  const chunk = (arr, size) => {
-    return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-      arr.slice(i * size, i * size + size),
-    );
-  };
-
-  // Split headlines into rows of two
-  const rows = chunk(headlines, 2);
+  const [date, setDate] = useState(new Date());
 
   return (
-    <div className="h-screen bg-green-200 text-white">
+    <div className="h-screen text-white">
       <div className="flex items-center justify-start bg-slate-600 p-4 text-2xl">
         <ArrowLeft
           onClick={() => {
@@ -30,21 +23,18 @@ export default function GymPage() {
       </div>
       {daySelected === false && (
         <div className="m-3 flex flex-col space-y-3">
-          {rows.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex space-x-3">
-              {row.map((headline, colIndex) => (
-                <div
-                  key={`${rowIndex}-${colIndex}`}
-                  className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-green-800 p-3"
-                  onClick={() => setDaySelected(true)}
-                >
-                  {headline}
-                </div>
-              ))}
-              {/* If row has only one item, add empty div to maintain layout */}
-              {row.length === 1 && <div className="w-1/2" />}
-            </div>
-          ))}
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={(newDate) => {
+              if (newDate) {
+                setDate(newDate);
+                setDaySelected(true);
+              }
+            }}
+            disabled={(date) => isFuture(date)}
+            className="rounded-md border"
+          />
         </div>
       )}
       {daySelected === true && (

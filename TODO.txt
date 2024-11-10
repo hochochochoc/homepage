@@ -1,6 +1,15 @@
-// Menu page with areas
-// Miscrellaneous
-// Gym
-// Studies
-// Project 1
-// x field
+// connect to firebase
+// connect to vercel -- done
+// implement user
+// use actual days
+// make it possible to change weights and reps
+// history page
+
+pages: 
+    menu
+    user profile (rudimentary)
+    day selection (import ui component)
+    workout plan
+    history
+
+// that's all

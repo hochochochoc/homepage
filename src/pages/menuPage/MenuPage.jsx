@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function MenuPage() {
   const navigate = useNavigate();
-  const headlines = ["Studies", "Gym", "Miscellaneous", "Project 1", "+"];
+  const headlines = ["Calendar", "Profile", "Plans", "History"];
 
   // Function to chunk array into pairs
   const chunk = (arr, size) => {
@@ -19,7 +19,7 @@ export default function MenuPage() {
   return (
     <div className="h-screen bg-blue-200 text-white">
       <div className="flex items-center justify-center bg-slate-600 p-4 text-2xl">
-        Areas
+        Menu
       </div>
       <div className="m-3 flex flex-col space-y-3">
         {rows.map((row, rowIndex) => (
@@ -27,7 +27,7 @@ export default function MenuPage() {
             {row.map((headline, colIndex) => (
               <div
                 key={`${rowIndex}-${colIndex}`}
-                onClick={() => navigate("/gym")}
+                onClick={() => navigate("/calendar")}
                 className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-blue-400 p-3"
               >
                 {headline === "+" ? <Plus /> : headline}
