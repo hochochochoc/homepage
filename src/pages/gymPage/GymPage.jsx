@@ -39,9 +39,32 @@ export default function GymPage() {
       )}
       {daySelected === true && (
         <div className="m-3 text-black">
-          <div>Exercise 1</div>
-          <div>Exercise 2</div>
-          <div>Exercise 3</div>
+          <h1 className="my-3 text-center">Nov 11 Lun - Chest Biceps</h1>
+          <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
+            <h2 className="font-bold">Incline DB Curls</h2>
+            <p className="ml-2">Weight: 9/10 kg</p>
+            <p className="ml-2">Reps: 18/15 10/8 7/7</p>
+          </div>
+          <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
+            <h2 className="font-bold">Concentration Curls</h2>
+            <p className="ml-2">Weight: 12 kg</p>
+            <p className="ml-2">Reps: 11 9 9</p>
+          </div>
+          <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
+            <h2 className="font-bold">Bench Press</h2>
+            <p className="ml-2">Weight: 20/16 kg</p>
+            <p className="ml-2">Reps: 20: 16 10 16: 9</p>
+          </div>
+          <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
+            <h2 className="font-bold">DB Flyes</h2>
+            <p className="ml-2">Weight: 8/9 kg</p>
+            <p className="ml-2">Reps: 13/12 12/12 12/12</p>
+          </div>
+          <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
+            <h2 className="font-bold">Core</h2>
+            <p className="ml-2">Weight: 70 kg</p>
+            <p className="ml-2">Reps: 20 17:3 15:3:2</p>
+          </div>
         </div>
       )}
     </div>
