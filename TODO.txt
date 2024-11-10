@@ -1,0 +1,6 @@
+// Menu page with areas
+// Miscrellaneous
+// Gym
+// Studies
+// Project 1
+// x field
