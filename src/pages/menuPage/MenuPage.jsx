@@ -28,7 +28,7 @@ export default function MenuPage() {
               <div
                 key={`${rowIndex}-${colIndex}`}
                 onClick={() => navigate("/gym")}
-                className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-blue-300 p-3"
+                className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-blue-400 p-3"
               >
                 {headline === "+" ? <Plus /> : headline}
               </div>

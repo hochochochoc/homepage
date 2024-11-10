@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function GymPage() {
   const headlines = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  const [daySelected, setDaySelected] = useState(true);
+  const [daySelected, setDaySelected] = useState(false);
+  const navigate = useNavigate();
 
   // Function to chunk array into pairs
   const chunk = (arr, size) => {
@@ -16,8 +19,14 @@ export default function GymPage() {
 
   return (
     <div className="h-screen bg-green-200 text-white">
-      <div className="flex items-center justify-center bg-slate-600 p-4 text-2xl">
-        Areas
+      <div className="flex items-center justify-start bg-slate-600 p-4 text-2xl">
+        <ArrowLeft
+          onClick={() => {
+            if (daySelected === false) {
+              navigate("/");
+            } else setDaySelected(false);
+          }}
+        />
       </div>
       {daySelected === false && (
         <div className="m-3 flex flex-col space-y-3">
@@ -27,6 +36,7 @@ export default function GymPage() {
                 <div
                   key={`${rowIndex}-${colIndex}`}
                   className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-green-800 p-3"
+                  onClick={() => setDaySelected(true)}
                 >
                   {headline}
                 </div>
@@ -53,7 +63,7 @@ export default function GymPage() {
           <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
             <h2 className="font-bold">Bench Press</h2>
             <p className="ml-2">Weight: 20/16 kg</p>
-            <p className="ml-2">Reps: 20: 16 10 16: 9</p>
+            <p className="ml-2">Reps: 20kg: 16 10 16kg: 9</p>
           </div>
           <div className="m-1 rounded-lg border border-black bg-green-900 p-2 text-white">
             <h2 className="font-bold">DB Flyes</h2>
