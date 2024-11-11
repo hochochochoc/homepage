@@ -82,7 +82,8 @@ export default function HistoryPage() {
       const line = d3
         .line()
         .x((d) => xScale(d.date))
-        .y((d) => yScale(d[key]));
+        .y((d) => yScale(d[key]))
+        .curve(d3.curveMonotoneX);
 
       // Add the line path
       svg
