@@ -9,4 +9,17 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+      },
+      // Ensure Firebase modules are included in the bundle
+      external: [],
+    },
+  },
+  // Pre-bundle Firebase dependencies
+  optimizeDeps: {
+    include: ["firebase/app", "firebase/auth", "firebase/firestore"],
+  },
 });
