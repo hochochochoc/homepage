@@ -45,7 +45,7 @@ const EditableField = ({ initialValue, onSave }) => {
   return (
     <span
       onClick={() => setIsEditing(true)}
-      className="cursor-pointer rounded hover:bg-blue-100"
+      className="cursor-pointer rounded px-0.5 hover:bg-blue-100"
     >
       {value}
     </span>
@@ -114,12 +114,20 @@ export default function CalendarPage() {
             { weight: "9", reps: 8 },
           ],
         },
+        {
+          name: "Core",
+          sets: [
+            { weight: "70", reps: 20 },
+            { weight: "70", reps: 17 },
+            { weight: "70", reps: 15 },
+          ],
+        },
       ],
     };
 
     try {
       await workoutService.saveWorkout(user.uid, date, workoutData);
-      alert(`Sample workout added for ${date}!`);
+      alert(`Sample workout added for ${formatDate(date)}!`);
       setWorkout(workoutData);
     } catch (error) {
       console.error("Error adding sample workout:", error);
