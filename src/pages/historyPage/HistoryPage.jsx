@@ -49,8 +49,10 @@ export default function HistoryPage() {
 
     d3.select(svgRef.current).selectAll("*").remove();
 
-    const margin = { top: 20, right: 80, bottom: 30, left: 30 };
-    const width = 360 - margin.left - margin.right;
+    const container = d3.select(svgRef.current.parentElement);
+    const containerWidth = container.node().getBoundingClientRect().width;
+    const margin = { top: 20, right: 30, bottom: 40, left: 30 };
+    const width = containerWidth * 0.9 - margin.left - margin.right;
     const height = 200 - margin.top - margin.bottom;
 
     const svg = d3
@@ -107,7 +109,31 @@ export default function HistoryPage() {
     });
 
     // Add axes
-    const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b %d"));
+    const xAxis = d3.axisBottom(xScale).tickFormat((date) => {
+      const xAxisDays = d3
+        .axisBottom(xScale)
+        .tickFormat((date) => d3.timeFormat("%d")(date));
+
+      // Add the main axis with days
+      svg
+        .append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(xAxisDays);
+
+      // Add just the month labels
+      svg
+        .append("g")
+        .attr("transform", `translate(0,${height + 30})`)
+        .selectAll("text")
+        .data(xScale.ticks())
+        .enter()
+        .append("text")
+        .attr("x", (d) => xScale(d))
+        .attr("text-anchor", "middle")
+        .style("font-size", "10px")
+        .text((d) => d3.timeFormat("%b")(d));
+    });
+
     const yAxis = d3.axisLeft(yScale);
 
     svg.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
