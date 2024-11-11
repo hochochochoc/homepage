@@ -1,7 +1,7 @@
 // connect to vercel -- done
-// connect to firebase
-// implement user
-// use actual days
+// connect to firebase -- done
+// implement user -- done
+// use actual days -- done
 // make it possible to change weights and reps
 // history page
 

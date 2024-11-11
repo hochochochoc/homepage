@@ -7,7 +7,7 @@ import { isFuture } from "date-fns";
 import { workoutService } from "../../services/workoutService";
 import { useAuth } from "../../contexts/AuthContext";
 
-const EditableReps = ({ initialValue, onSave }) => {
+const EditableField = ({ initialValue, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
 
@@ -45,7 +45,7 @@ const EditableReps = ({ initialValue, onSave }) => {
   return (
     <span
       onClick={() => setIsEditing(true)}
-      className="cursor-pointer rounded px-1 hover:bg-blue-100"
+      className="cursor-pointer rounded hover:bg-blue-100"
     >
       {value}
     </span>
@@ -83,8 +83,10 @@ export default function CalendarPage() {
           sets: [
             { weight: "9", reps: 18 },
             { weight: "10", reps: 15 },
+            { weight: "9", reps: 12 },
+            { weight: "10", reps: 10 },
             { weight: "9", reps: 8 },
-            { weight: "10", reps: 7 },
+            { weight: "10", reps: 5 },
           ],
         },
         {
@@ -176,6 +178,35 @@ export default function CalendarPage() {
     }
   };
 
+  const updateWeight = async (exerciseIndex, oldWeight, newWeight) => {
+    if (!user || !date || !workout) return;
+
+    const updatedWorkout = {
+      ...workout,
+      exercises: workout.exercises.map((exercise, exIdx) => {
+        if (exIdx === exerciseIndex) {
+          return {
+            ...exercise,
+            sets: exercise.sets.map((set) => ({
+              ...set,
+              weight:
+                set.weight === oldWeight ? newWeight.toString() : set.weight,
+            })),
+          };
+        }
+        return exercise;
+      }),
+    };
+
+    try {
+      await workoutService.saveWorkout(user.uid, date, updatedWorkout);
+      setWorkout(updatedWorkout);
+    } catch (error) {
+      console.error("Error updating workout:", error);
+      alert("Error updating workout");
+    }
+  };
+
   const renderExercise = (exercise, exerciseIndex) => {
     const formatRepsDisplay = (sets) => {
       const uniqueWeights = [...new Set(sets.map((set) => set.weight))];
@@ -184,7 +215,7 @@ export default function CalendarPage() {
           <span>
             {sets.map((set, idx) => (
               <React.Fragment key={idx}>
-                <EditableReps
+                <EditableField
                   initialValue={set.reps}
                   onSave={(newReps) => updateReps(exerciseIndex, idx, newReps)}
                 />
@@ -200,14 +231,14 @@ export default function CalendarPage() {
               if (idx % 2 === 0) {
                 const pair = (
                   <React.Fragment key={idx}>
-                    <EditableReps
+                    <EditableField
                       initialValue={set.reps}
                       onSave={(newReps) =>
                         updateReps(exerciseIndex, idx, newReps)
                       }
                     />
                     /
-                    <EditableReps
+                    <EditableField
                       initialValue={sets[idx + 1].reps}
                       onSave={(newReps) =>
                         updateReps(exerciseIndex, idx + 1, newReps)
@@ -225,9 +256,16 @@ export default function CalendarPage() {
       }
     };
 
-    const weights = [...new Set(exercise.sets.map((set) => set.weight))].join(
-      "/",
-    );
+    const weights = [...new Set(exercise.sets.map((set) => set.weight))];
+    const weightDisplay = weights.map((weight, idx) => (
+      <React.Fragment key={weight}>
+        <EditableField
+          initialValue={weight}
+          onSave={(newWeight) => updateWeight(exerciseIndex, weight, newWeight)}
+        />
+        {idx < weights.length - 1 ? "/" : ""}
+      </React.Fragment>
+    ));
 
     return (
       <div
@@ -235,7 +273,7 @@ export default function CalendarPage() {
         className="m-2 rounded-lg border border-black bg-green-300/20 p-2 text-black shadow-lg"
       >
         <h2 className="font-bold">{exercise.name}</h2>
-        <p className="ml-2">Weight: {weights}kg</p>
+        <p className="ml-2">Weight: {weightDisplay}kg</p>
         <p className="ml-2">Reps per set: {formatRepsDisplay(exercise.sets)}</p>
       </div>
     );
