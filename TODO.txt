@@ -8,7 +8,8 @@
 pages: 
     menu
     user profile (rudimentary)
-    day selection (import ui component)
+    calendar -- done
+    individual days
     workout plan
     history
 

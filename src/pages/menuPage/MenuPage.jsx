@@ -27,7 +27,10 @@ export default function MenuPage() {
             {row.map((headline, colIndex) => (
               <div
                 key={`${rowIndex}-${colIndex}`}
-                onClick={() => navigate("/calendar")}
+                onClick={() => {
+                  const path = `/${headline.toLowerCase().replace(/\s+/g, "")}`;
+                  navigate(path);
+                }}
                 className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-blue-400 p-3"
               >
                 {headline === "+" ? <Plus /> : headline}
