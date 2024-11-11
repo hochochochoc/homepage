@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Calendar } from "@/components/ui/calendar";
 import format from "date-fns/format";
 import { isFuture } from "date-fns";
-import { workoutService } from "@/services/workoutService";
-import { useAuth } from "@/contexts/AuthContext";
+import { workoutService } from "../../services/workoutService";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function CalendarPage() {
   const [daySelected, setDaySelected] = useState(false);
