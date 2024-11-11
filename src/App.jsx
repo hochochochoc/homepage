@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import MenuPage from "./pages/menuPage/MenuPage";
-import CalendarPage from "./pages/calendarPage/CalendarPage.jsx";
+import CalendarPage from "./pages/CalendarPage/CalendarPage.jsx";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import PlansPage from "./pages/plansPage/PlansPage";
 import HistoryPage from "./pages/historyPage/HistoryPage";
