@@ -51,16 +51,17 @@ export default function CalendarPage() {
   const addSampleWorkout = async () => {
     if (!user) return;
 
-    const sampleDate = new Date(2024, 10, 11); // Month is 0-based, so 10 = November
     const workoutData = {
       type: "Chest Biceps",
       exercises: [
         {
           name: "Incline DB Curls",
           sets: [
+            // First set: 18 reps at 9kg, 15 reps at 10kg
             { weight: "9", reps: 18 },
             { weight: "10", reps: 15 },
-            { weight: "10", reps: 8 },
+            // Second set: 8 reps at 9kg, 7 reps at 10kg
+            { weight: "9", reps: 8 },
             { weight: "10", reps: 7 },
           ],
         },
@@ -75,61 +76,75 @@ export default function CalendarPage() {
         {
           name: "Bench Press",
           sets: [
+            // Single weight sets, just showing progression
             { weight: "20", reps: 16 },
+            { weight: "20", reps: 12 },
             { weight: "20", reps: 10 },
-            { weight: "16", reps: 9 },
           ],
         },
         {
           name: "DB Flyes",
           sets: [
+            // First set: 13 reps at 8kg, 12 reps at 9kg
             { weight: "8", reps: 13 },
             { weight: "9", reps: 12 },
-            { weight: "9", reps: 12 },
-          ],
-        },
-        {
-          name: "Core",
-          sets: [
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 20 },
+            // Second set: 10 reps at 8kg, 8 reps at 9kg
+            { weight: "8", reps: 10 },
+            { weight: "9", reps: 8 },
           ],
         },
       ],
     };
 
     try {
-      await workoutService.saveWorkout(user.uid, sampleDate, workoutData);
-      alert("Sample workout added for Nov 11, 2024!");
+      await workoutService.saveWorkout(user.uid, date, workoutData);
+      alert(`Sample workout added for ${date}!`);
 
-      // If currently viewing that date, update the display
-      if (
-        date &&
-        format(date, "yyyy-MM-dd") === format(sampleDate, "yyyy-MM-dd")
-      ) {
-        setWorkout(workoutData);
-      }
+      setWorkout(workoutData);
     } catch (error) {
       console.error("Error adding sample workout:", error);
       alert("Error adding sample workout");
     }
   };
 
-  const renderExercise = (exercise) => (
-    <div
-      key={exercise.name}
-      className="m-2 rounded-lg border border-black bg-green-300/20 p-2 text-black shadow-lg"
-    >
-      <h2 className="font-bold">{exercise.name}</h2>
-      <p className="ml-2">
-        Weight: {exercise.sets.map((set) => set.weight).join("/")} kg
-      </p>
-      <p className="ml-2">
-        Reps: {exercise.sets.map((set) => set.reps).join(" ")}
-      </p>
-    </div>
-  );
+  const renderExercise = (exercise) => {
+    // Helper function to format reps based on weights
+    const formatRepsDisplay = (sets) => {
+      const uniqueWeights = [...new Set(sets.map((set) => set.weight))];
+      if (uniqueWeights.length === 1) {
+        // Single weight case - just show reps in sequence
+        return sets.map((set) => set.reps).join(" ");
+      } else {
+        // Multiple weights case - handle pairs of sets
+        const numPairs = sets.length / 2;
+        let result = [];
+
+        for (let i = 0; i < sets.length; i += 2) {
+          // For each pair, take reps for first weight and second weight
+          const pairReps = `${sets[i].reps}/${sets[i + 1].reps}`;
+          result.push(pairReps);
+        }
+
+        return result.join(" ");
+      }
+    };
+
+    const weights = [...new Set(exercise.sets.map((set) => set.weight))].join(
+      "/",
+    );
+    const reps = formatRepsDisplay(exercise.sets);
+
+    return (
+      <div
+        key={exercise.name}
+        className="m-2 rounded-lg border border-black bg-green-300/20 p-2 text-black shadow-lg"
+      >
+        <h2 className="font-bold">{exercise.name}</h2>
+        <p className="ml-2">Weight: {weights}kg</p>
+        <p className="ml-2">Reps per set: {reps}</p>
+      </div>
+    );
+  };
 
   return (
     <div className="h-screen text-white">
@@ -167,7 +182,7 @@ export default function CalendarPage() {
             onClick={addSampleWorkout}
             className="my-6 rounded bg-blue-200 px-4 py-2 text-sm hover:bg-green-600"
           >
-            Add Sample Workout (Nov 11)
+            Add Sample Workout
           </button>
         </div>
       )}
