@@ -31,7 +31,7 @@ export default function MenuPage() {
                   const path = `/${headline.toLowerCase().replace(/\s+/g, "")}`;
                   navigate(path);
                 }}
-                className="flex h-24 w-1/2 items-center justify-center rounded-lg border border-black bg-blue-400 p-3"
+                className="flex h-24 w-1/2 items-center justify-center rounded-lg bg-white p-3 text-black shadow-lg"
               >
                 {headline === "+" ? <Plus /> : headline}
               </div>
