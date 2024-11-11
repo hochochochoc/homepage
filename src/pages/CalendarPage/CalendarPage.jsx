@@ -7,6 +7,51 @@ import { isFuture } from "date-fns";
 import { workoutService } from "../../services/workoutService";
 import { useAuth } from "../../contexts/AuthContext";
 
+const EditableReps = ({ initialValue, onSave }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(initialValue);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSave();
+    } else if (e.key === "Escape") {
+      setIsEditing(false);
+      setValue(initialValue);
+    }
+  };
+
+  const handleSave = () => {
+    const numValue = parseInt(value);
+    if (!isNaN(numValue) && numValue >= 0) {
+      onSave(numValue);
+      setIsEditing(false);
+    }
+  };
+
+  if (isEditing) {
+    return (
+      <input
+        type="number"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={handleSave}
+        onKeyDown={handleKeyDown}
+        className="w-8 rounded border border-gray-300 px-1 text-center text-black focus:outline-none focus:ring focus:ring-blue-300"
+        autoFocus
+      />
+    );
+  }
+
+  return (
+    <span
+      onClick={() => setIsEditing(true)}
+      className="cursor-pointer rounded px-1 hover:bg-blue-100"
+    >
+      {value}
+    </span>
+  );
+};
+
 export default function CalendarPage() {
   const [daySelected, setDaySelected] = useState(false);
   const [workout, setWorkout] = useState(null);
@@ -25,6 +70,59 @@ export default function CalendarPage() {
       return `${month} ${day} ${weekday} ${year}`;
     }
     return `${month} ${day} ${weekday}`;
+  };
+
+  const addSampleWorkout = async () => {
+    if (!user) return;
+
+    const workoutData = {
+      type: "Chest Biceps",
+      exercises: [
+        {
+          name: "Incline DB Curls",
+          sets: [
+            { weight: "9", reps: 18 },
+            { weight: "10", reps: 15 },
+            { weight: "9", reps: 8 },
+            { weight: "10", reps: 7 },
+          ],
+        },
+        {
+          name: "Concentration Curls",
+          sets: [
+            { weight: "12", reps: 11 },
+            { weight: "12", reps: 9 },
+            { weight: "12", reps: 9 },
+          ],
+        },
+        {
+          name: "Bench Press",
+          sets: [
+            { weight: "20", reps: 16 },
+            { weight: "20", reps: 12 },
+            { weight: "20", reps: 10 },
+          ],
+        },
+        {
+          name: "DB Flyes",
+          sets: [
+            { weight: "8", reps: 13 },
+            { weight: "9", reps: 12 },
+            { weight: "8", reps: 10 },
+            { weight: "9", reps: 8 },
+          ],
+        },
+      ],
+    };
+
+    try {
+      await workoutService.saveWorkout(user.uid, date, workoutData);
+      alert(`Sample workout added for ${date}!`);
+      setWorkout(workoutData);
+    } catch (error) {
+      console.error("Error adding sample workout:", error);
+      alert("Error adding sample workout");
+    }
   };
 
   useEffect(() => {
@@ -48,91 +146,88 @@ export default function CalendarPage() {
     }
   };
 
-  const addSampleWorkout = async () => {
-    if (!user) return;
+  const updateReps = async (exerciseIndex, setIndex, newReps) => {
+    if (!user || !date || !workout) return;
 
-    const workoutData = {
-      type: "Chest Biceps",
-      exercises: [
-        {
-          name: "Incline DB Curls",
-          sets: [
-            // First set: 18 reps at 9kg, 15 reps at 10kg
-            { weight: "9", reps: 18 },
-            { weight: "10", reps: 15 },
-            // Second set: 8 reps at 9kg, 7 reps at 10kg
-            { weight: "9", reps: 8 },
-            { weight: "10", reps: 7 },
-          ],
-        },
-        {
-          name: "Concentration Curls",
-          sets: [
-            { weight: "12", reps: 11 },
-            { weight: "12", reps: 9 },
-            { weight: "12", reps: 9 },
-          ],
-        },
-        {
-          name: "Bench Press",
-          sets: [
-            // Single weight sets, just showing progression
-            { weight: "20", reps: 16 },
-            { weight: "20", reps: 12 },
-            { weight: "20", reps: 10 },
-          ],
-        },
-        {
-          name: "DB Flyes",
-          sets: [
-            // First set: 13 reps at 8kg, 12 reps at 9kg
-            { weight: "8", reps: 13 },
-            { weight: "9", reps: 12 },
-            // Second set: 10 reps at 8kg, 8 reps at 9kg
-            { weight: "8", reps: 10 },
-            { weight: "9", reps: 8 },
-          ],
-        },
-      ],
+    const updatedWorkout = {
+      ...workout,
+      exercises: workout.exercises.map((exercise, exIdx) => {
+        if (exIdx === exerciseIndex) {
+          return {
+            ...exercise,
+            sets: exercise.sets.map((set, setIdx) => {
+              if (setIdx === setIndex) {
+                return { ...set, reps: newReps };
+              }
+              return set;
+            }),
+          };
+        }
+        return exercise;
+      }),
     };
 
     try {
-      await workoutService.saveWorkout(user.uid, date, workoutData);
-      alert(`Sample workout added for ${date}!`);
-
-      setWorkout(workoutData);
+      await workoutService.saveWorkout(user.uid, date, updatedWorkout);
+      setWorkout(updatedWorkout);
     } catch (error) {
-      console.error("Error adding sample workout:", error);
-      alert("Error adding sample workout");
+      console.error("Error updating workout:", error);
+      alert("Error updating workout");
     }
   };
 
-  const renderExercise = (exercise) => {
-    // Helper function to format reps based on weights
+  const renderExercise = (exercise, exerciseIndex) => {
     const formatRepsDisplay = (sets) => {
       const uniqueWeights = [...new Set(sets.map((set) => set.weight))];
       if (uniqueWeights.length === 1) {
-        // Single weight case - just show reps in sequence
-        return sets.map((set) => set.reps).join(" ");
+        return (
+          <span>
+            {sets.map((set, idx) => (
+              <React.Fragment key={idx}>
+                <EditableReps
+                  initialValue={set.reps}
+                  onSave={(newReps) => updateReps(exerciseIndex, idx, newReps)}
+                />
+                {idx < sets.length - 1 ? " " : ""}
+              </React.Fragment>
+            ))}
+          </span>
+        );
       } else {
-        // Multiple weights case - handle pairs of sets
-        const numPairs = sets.length / 2;
-        let result = [];
-
-        for (let i = 0; i < sets.length; i += 2) {
-          // For each pair, take reps for first weight and second weight
-          const pairReps = `${sets[i].reps}/${sets[i + 1].reps}`;
-          result.push(pairReps);
-        }
-
-        return result.join(" ");
+        return (
+          <span>
+            {sets.reduce((acc, set, idx) => {
+              if (idx % 2 === 0) {
+                const pair = (
+                  <React.Fragment key={idx}>
+                    <EditableReps
+                      initialValue={set.reps}
+                      onSave={(newReps) =>
+                        updateReps(exerciseIndex, idx, newReps)
+                      }
+                    />
+                    /
+                    <EditableReps
+                      initialValue={sets[idx + 1].reps}
+                      onSave={(newReps) =>
+                        updateReps(exerciseIndex, idx + 1, newReps)
+                      }
+                    />
+                    {idx < sets.length - 2 ? " " : ""}
+                  </React.Fragment>
+                );
+                acc.push(pair);
+              }
+              return acc;
+            }, [])}
+          </span>
+        );
       }
     };
 
     const weights = [...new Set(exercise.sets.map((set) => set.weight))].join(
       "/",
     );
-    const reps = formatRepsDisplay(exercise.sets);
 
     return (
       <div
@@ -141,7 +236,7 @@ export default function CalendarPage() {
       >
         <h2 className="font-bold">{exercise.name}</h2>
         <p className="ml-2">Weight: {weights}kg</p>
-        <p className="ml-2">Reps per set: {reps}</p>
+        <p className="ml-2">Reps per set: {formatRepsDisplay(exercise.sets)}</p>
       </div>
     );
   };
@@ -172,7 +267,9 @@ export default function CalendarPage() {
           <h1 className="my-3 text-center">
             {formatDate(date)} - {workout.type}
           </h1>
-          {workout.exercises.map(renderExercise)}
+          {workout.exercises.map((exercise, index) =>
+            renderExercise(exercise, index),
+          )}
         </div>
       )}
       {daySelected === true && !workout && (
