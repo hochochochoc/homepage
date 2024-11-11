@@ -133,7 +133,7 @@ export default function CalendarPage() {
 
   return (
     <div className="h-screen text-white">
-      <div className="flex items-center justify-between bg-slate-600 p-4 text-2xl">
+      <div className="flex items-center justify-between bg-slate-500 p-4 text-2xl">
         <ArrowLeft onClick={handleBack} />
       </div>
       {daySelected === false && (
