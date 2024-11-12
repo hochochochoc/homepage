@@ -130,6 +130,16 @@ const PlansPage = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
+  const dayOrder = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
   const defaultWorkoutPlans = {
     Monday: {
       type: "Chest Biceps Core",
@@ -433,59 +443,69 @@ const PlansPage = () => {
   }
 
   return (
-    <div className="h-screen bg-slate-100 text-black">
+    <div className="h-screen text-black">
       <div className="flex items-center justify-start bg-slate-500 p-4 text-2xl text-white">
         <ArrowLeft onClick={() => navigate("/")} />
       </div>
       <div className="m-3 flex flex-col space-y-3">
-        {Object.entries(workoutPlans).map(([day, workout]) => (
-          <div
-            key={day}
-            className="rounded-lg border border-black bg-green-300/20 shadow-lg"
-          >
+        {dayOrder.map((day) => {
+          const workout = workoutPlans[day.toLowerCase()];
+          if (!workout) return null;
+
+          return (
             <div
-              onClick={() => toggleDay(day)}
-              className="flex cursor-pointer items-center justify-between p-4"
+              key={day}
+              className="rounded-lg border border-black bg-green-300/20 shadow-lg"
             >
-              <h2 className="font-bold">
-                {day.charAt(0).toUpperCase() + day.slice(1)} - {workout.type}
-              </h2>
-              {openDay === day ? (
-                <ChevronUp className="h-5 w-5" />
-              ) : (
-                <ChevronDown className="h-5 w-5" />
-              )}
-            </div>
-            {openDay === day && (
-              <div className="border-t border-gray-200 p-4">
-                {workout.type === "Rest" ? (
-                  <p className="text-center italic">
-                    Rest Day - No exercises scheduled
-                  </p>
+              <div
+                onClick={() => toggleDay(day)}
+                className="flex cursor-pointer items-center justify-between p-4"
+              >
+                <h2 className="font-bold">
+                  {day} - {workout.type}
+                </h2>
+                {openDay === day ? (
+                  <ChevronUp className="h-5 w-5" />
                 ) : (
-                  workout.exercises.map((exercise, index) => (
-                    <ExerciseDisplay
-                      key={exercise.name}
-                      exercise={exercise}
-                      exerciseIndex={index}
-                      onUpdateReps={(exerciseIndex, setIndex, newReps) =>
-                        handleUpdateReps(day, exerciseIndex, setIndex, newReps)
-                      }
-                      onUpdateWeight={(exerciseIndex, oldWeight, newWeight) =>
-                        handleUpdateWeight(
-                          day,
-                          exerciseIndex,
-                          oldWeight,
-                          newWeight,
-                        )
-                      }
-                    />
-                  ))
+                  <ChevronDown className="h-5 w-5" />
                 )}
               </div>
-            )}
-          </div>
-        ))}
+              {openDay === day && (
+                <div className="border-t border-gray-200 p-4">
+                  {workout.type === "Rest" ? (
+                    <p className="text-center italic">
+                      Rest Day - No exercises scheduled
+                    </p>
+                  ) : (
+                    workout.exercises.map((exercise, index) => (
+                      <ExerciseDisplay
+                        key={exercise.name}
+                        exercise={exercise}
+                        exerciseIndex={index}
+                        onUpdateReps={(exerciseIndex, setIndex, newReps) =>
+                          handleUpdateReps(
+                            day,
+                            exerciseIndex,
+                            setIndex,
+                            newReps,
+                          )
+                        }
+                        onUpdateWeight={(exerciseIndex, oldWeight, newWeight) =>
+                          handleUpdateWeight(
+                            day,
+                            exerciseIndex,
+                            oldWeight,
+                            newWeight,
+                          )
+                        }
+                      />
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

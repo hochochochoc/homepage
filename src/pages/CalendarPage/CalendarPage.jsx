@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import format from "date-fns/format";
 import { isFuture } from "date-fns";
 import { workoutService } from "../../services/workoutService";
+import { planService } from "@/services/planService";
 import { useAuth } from "../../contexts/AuthContext";
 
 const EditableField = ({ initialValue, onSave }) => {
@@ -73,65 +74,32 @@ export default function CalendarPage() {
   };
 
   const addSampleWorkout = async () => {
-    if (!user) return;
-
-    const workoutData = {
-      type: "Chest Biceps",
-      exercises: [
-        {
-          name: "Incline DB Curls",
-          sets: [
-            { weight: "9", reps: 18 },
-            { weight: "10", reps: 15 },
-            { weight: "9", reps: 12 },
-            { weight: "10", reps: 10 },
-            { weight: "9", reps: 8 },
-            { weight: "10", reps: 5 },
-          ],
-        },
-        {
-          name: "Concentration Curls",
-          sets: [
-            { weight: "12", reps: 11 },
-            { weight: "12", reps: 9 },
-            { weight: "12", reps: 9 },
-          ],
-        },
-        {
-          name: "Bench Press",
-          sets: [
-            { weight: "40", reps: 16 },
-            { weight: "40", reps: 12 },
-            { weight: "40", reps: 10 },
-          ],
-        },
-        {
-          name: "DB Flyes",
-          sets: [
-            { weight: "8", reps: 13 },
-            { weight: "9", reps: 12 },
-            { weight: "8", reps: 10 },
-            { weight: "9", reps: 8 },
-          ],
-        },
-        {
-          name: "Core",
-          sets: [
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 17 },
-            { weight: "70", reps: 15 },
-          ],
-        },
-      ],
-    };
+    if (!user || !date) return;
 
     try {
+      // Get the day name from the date
+      const dayName = format(date, "EEEE"); // Returns full day name (Monday, Tuesday, etc.)
+
+      // Get the plan for that day
+      const dayPlan = await planService.getPlan(user.uid, dayName);
+
+      if (!dayPlan) {
+        alert("No plan found for " + dayName);
+        return;
+      }
+
+      // Use the plan as the workout data
+      const workoutData = {
+        type: dayPlan.type,
+        exercises: dayPlan.exercises,
+      };
+
       await workoutService.saveWorkout(user.uid, date, workoutData);
-      alert(`Sample workout added for ${formatDate(date)}!`);
+      alert(`Workout added for ${formatDate(date)}!`);
       setWorkout(workoutData);
     } catch (error) {
-      console.error("Error adding sample workout:", error);
-      alert("Error adding sample workout");
+      console.error("Error adding workout:", error);
+      alert("Error adding workout");
     }
   };
 
