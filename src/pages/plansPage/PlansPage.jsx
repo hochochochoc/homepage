@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { planService } from "@/services/planService";
 
 const EditableField = ({ initialValue, onSave }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -124,8 +126,11 @@ const ExerciseDisplay = ({
 const PlansPage = () => {
   const navigate = useNavigate();
   const [openDay, setOpenDay] = useState(null);
+  const [workoutPlans, setWorkoutPlans] = useState({});
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const workoutPlans = {
+  const defaultWorkoutPlans = {
     Monday: {
       type: "Chest Biceps Core",
       exercises: [
@@ -315,21 +320,117 @@ const PlansPage = () => {
     },
   };
 
+  useEffect(() => {
+    const loadPlans = async () => {
+      if (!user) return;
+
+      try {
+        setIsLoading(true);
+        const savedPlans = await planService.getAllPlans(user.uid);
+
+        // If no saved plans exist, save the default plans
+        if (Object.keys(savedPlans).length === 0) {
+          await Promise.all(
+            Object.entries(defaultWorkoutPlans).map(([day, plan]) =>
+              planService.savePlan(user.uid, day, plan),
+            ),
+          );
+          setWorkoutPlans(defaultWorkoutPlans);
+        } else {
+          setWorkoutPlans(savedPlans);
+        }
+      } catch (error) {
+        console.error("Error loading plans:", error);
+        alert("Error loading workout plans");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadPlans();
+  }, [user]);
+
+  const handleUpdateReps = async (day, exerciseIndex, setIndex, newReps) => {
+    if (!user) return;
+
+    const updatedPlan = {
+      ...workoutPlans[day],
+      exercises: workoutPlans[day].exercises.map((exercise, exIdx) => {
+        if (exIdx === exerciseIndex) {
+          return {
+            ...exercise,
+            sets: exercise.sets.map((set, setIdx) => {
+              if (setIdx === setIndex) {
+                return { ...set, reps: newReps };
+              }
+              return set;
+            }),
+          };
+        }
+        return exercise;
+      }),
+    };
+
+    try {
+      await planService.savePlan(user.uid, day, updatedPlan);
+      setWorkoutPlans((prev) => ({
+        ...prev,
+        [day]: updatedPlan,
+      }));
+    } catch (error) {
+      console.error("Error updating plan:", error);
+      alert("Error updating workout plan");
+    }
+  };
+
+  const handleUpdateWeight = async (
+    day,
+    exerciseIndex,
+    oldWeight,
+    newWeight,
+  ) => {
+    if (!user) return;
+
+    const updatedPlan = {
+      ...workoutPlans[day],
+      exercises: workoutPlans[day].exercises.map((exercise, exIdx) => {
+        if (exIdx === exerciseIndex) {
+          return {
+            ...exercise,
+            sets: exercise.sets.map((set) => ({
+              ...set,
+              weight:
+                set.weight === oldWeight ? newWeight.toString() : set.weight,
+            })),
+          };
+        }
+        return exercise;
+      }),
+    };
+
+    try {
+      await planService.savePlan(user.uid, day, updatedPlan);
+      setWorkoutPlans((prev) => ({
+        ...prev,
+        [day]: updatedPlan,
+      }));
+    } catch (error) {
+      console.error("Error updating plan:", error);
+      alert("Error updating workout plan");
+    }
+  };
+
   const toggleDay = (dayName) => {
     setOpenDay(openDay === dayName ? null : dayName);
   };
 
-  const handleUpdateReps = (exerciseIndex, setIndex, newReps) => {
-    console.log(
-      `Updated reps for exercise ${exerciseIndex}, set ${setIndex} to ${newReps}`,
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p>Loading workout plans...</p>
+      </div>
     );
-  };
-
-  const handleUpdateWeight = (exerciseIndex, oldWeight, newWeight) => {
-    console.log(
-      `Updated weight for exercise ${exerciseIndex} from ${oldWeight} to ${newWeight}`,
-    );
-  };
+  }
 
   return (
     <div className="h-screen bg-slate-100 text-black">
@@ -347,7 +448,7 @@ const PlansPage = () => {
               className="flex cursor-pointer items-center justify-between p-4"
             >
               <h2 className="font-bold">
-                {day} - {workout.type}
+                {day.charAt(0).toUpperCase() + day.slice(1)} - {workout.type}
               </h2>
               {openDay === day ? (
                 <ChevronUp className="h-5 w-5" />
@@ -367,8 +468,17 @@ const PlansPage = () => {
                       key={exercise.name}
                       exercise={exercise}
                       exerciseIndex={index}
-                      onUpdateReps={handleUpdateReps}
-                      onUpdateWeight={handleUpdateWeight}
+                      onUpdateReps={(exerciseIndex, setIndex, newReps) =>
+                        handleUpdateReps(day, exerciseIndex, setIndex, newReps)
+                      }
+                      onUpdateWeight={(exerciseIndex, oldWeight, newWeight) =>
+                        handleUpdateWeight(
+                          day,
+                          exerciseIndex,
+                          oldWeight,
+                          newWeight,
+                        )
+                      }
                     />
                   ))
                 )}
