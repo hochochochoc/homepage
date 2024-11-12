@@ -100,9 +100,9 @@ export default function CalendarPage() {
         {
           name: "Bench Press",
           sets: [
-            { weight: "20", reps: 16 },
-            { weight: "20", reps: 12 },
-            { weight: "20", reps: 10 },
+            { weight: "40", reps: 16 },
+            { weight: "40", reps: 12 },
+            { weight: "40", reps: 10 },
           ],
         },
         {

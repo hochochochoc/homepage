@@ -9,43 +9,64 @@ export default function HistoryPage() {
   const navigate = useNavigate();
   const svgRef = useRef();
   const { user } = useAuth();
-  const [benchData, setBenchData] = useState([]);
+  const [exerciseData, setExerciseData] = useState([]);
+  const [availableExercises, setAvailableExercises] = useState([]);
+  const [selectedExercise, setSelectedExercise] = useState("");
 
   // Fetch the data
   useEffect(() => {
-    const fetchBenchHistory = async () => {
+    const fetchExerciseHistory = async () => {
       if (!user) return;
       const workouts = await workoutService.getAllWorkouts(user.uid);
 
-      const benchHistory = workouts
-        .filter((workout) => workout.exercises)
-        .map((workout) => {
-          const benchExercise = workout.exercises.find((ex) =>
-            ex.name.toLowerCase().includes("bench press"),
-          );
+      // Get unique exercise names
+      const exerciseNames = new Set();
+      workouts.forEach((workout) => {
+        if (workout.exercises) {
+          workout.exercises.forEach((exercise) => {
+            exerciseNames.add(exercise.name);
+          });
+        }
+      });
+      const sortedExercises = Array.from(exerciseNames).sort();
+      setAvailableExercises(sortedExercises);
 
-          if (benchExercise) {
-            return {
-              date: new Date(workout.timestamp),
-              set1: parseInt(benchExercise.sets[0]?.reps) || 0,
-              set2: parseInt(benchExercise.sets[1]?.reps) || 0,
-              set3: parseInt(benchExercise.sets[2]?.reps) || 0,
-            };
-          }
-          return null;
-        })
-        .filter(Boolean)
-        .sort((a, b) => a.date - b.date);
+      // Set default selected exercise if none is selected
+      if (!selectedExercise && sortedExercises.length > 0) {
+        setSelectedExercise(sortedExercises[0]);
+      }
 
-      setBenchData(benchHistory);
+      if (selectedExercise) {
+        const exerciseHistory = workouts
+          .filter((workout) => workout.exercises)
+          .map((workout) => {
+            const exercise = workout.exercises.find(
+              (ex) => ex.name === selectedExercise,
+            );
+
+            if (exercise) {
+              return {
+                date: new Date(workout.timestamp),
+                set1: parseInt(exercise.sets[0]?.reps) || 0,
+                set2: parseInt(exercise.sets[1]?.reps) || 0,
+                set3: parseInt(exercise.sets[2]?.reps) || 0,
+              };
+            }
+            return null;
+          })
+          .filter(Boolean)
+          .sort((a, b) => a.date - b.date);
+
+        setExerciseData(exerciseHistory);
+      }
     };
 
-    fetchBenchHistory();
-  }, [user]);
+    fetchExerciseHistory();
+  }, [user, selectedExercise]);
 
   // Draw the chart
   useEffect(() => {
-    if (!benchData.length) return;
+    if (!exerciseData.length) return;
 
     d3.select(svgRef.current).selectAll("*").remove();
 
@@ -64,12 +85,15 @@ export default function HistoryPage() {
 
     const xScale = d3
       .scaleTime()
-      .domain(d3.extent(benchData, (d) => d.date))
+      .domain(d3.extent(exerciseData, (d) => d.date))
       .range([0, width]);
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(benchData, (d) => Math.max(d.set1, d.set2, d.set3))])
+      .domain([
+        0,
+        d3.max(exerciseData, (d) => Math.max(d.set1, d.set2, d.set3)),
+      ])
       .range([height, 0]);
 
     // Create lines
@@ -80,26 +104,23 @@ export default function HistoryPage() {
     ];
 
     lines.forEach(({ key, color }) => {
-      // Create the line generator
       const line = d3
         .line()
         .x((d) => xScale(d.date))
         .y((d) => yScale(d[key]))
         .curve(d3.curveMonotoneX);
 
-      // Add the line path
       svg
         .append("path")
-        .datum(benchData)
+        .datum(exerciseData)
         .attr("fill", "none")
         .attr("stroke", color)
         .attr("stroke-width", 2)
         .attr("d", line);
 
-      // Add dots for each data point
       svg
         .selectAll(`dot-${key}`)
-        .data(benchData)
+        .data(exerciseData)
         .enter()
         .append("circle")
         .attr("cx", (d) => xScale(d.date))
@@ -109,51 +130,70 @@ export default function HistoryPage() {
     });
 
     // Add axes
-    const xAxis = d3.axisBottom(xScale).tickFormat((date) => {
-      const xAxisDays = d3
-        .axisBottom(xScale)
-        .tickFormat((date) => d3.timeFormat("%d")(date));
+    const xAxisDays = d3
+      .axisBottom(xScale)
+      .tickFormat((date) => d3.timeFormat("%d")(date));
 
-      // Add the main axis with days
-      svg
-        .append("g")
-        .attr("transform", `translate(0,${height})`)
-        .call(xAxisDays);
+    // Add the main axis with days
+    svg.append("g").attr("transform", `translate(0,${height})`).call(xAxisDays);
 
-      // Add just the month labels
-      svg
-        .append("g")
-        .attr("transform", `translate(0,${height + 30})`)
-        .selectAll("text")
-        .data(xScale.ticks())
-        .enter()
-        .append("text")
-        .attr("x", (d) => xScale(d))
-        .attr("text-anchor", "middle")
-        .style("font-size", "10px")
-        .text((d) => d3.timeFormat("%b")(d));
-    });
+    // Add just the month labels
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height + 30})`)
+      .selectAll("text")
+      .data(xScale.ticks())
+      .enter()
+      .append("text")
+      .attr("x", (d) => xScale(d))
+      .attr("text-anchor", "middle")
+      .style("font-size", "10px")
+      .text((d) => d3.timeFormat("%b")(d));
 
     const yAxis = d3.axisLeft(yScale);
-
-    svg.append("g").attr("transform", `translate(0,${height})`).call(xAxis);
-
     svg.append("g").call(yAxis);
-  }, [benchData]);
+  }, [exerciseData]);
 
   return (
     <div className="h-screen bg-white text-black">
       <div className="flex items-center justify-start bg-slate-500 p-4 text-2xl text-white">
         <ArrowLeft onClick={() => navigate("/")} />
-        <h1 className="ml-4">Bench Press Progress</h1>
+        <h1 className="ml-20"> History </h1>
       </div>
       <div className="m-3">
+        <div className="mb-4 flex justify-center">
+          <select
+            value={selectedExercise}
+            onChange={(e) => setSelectedExercise(e.target.value)}
+            className="rounded border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none"
+          >
+            {availableExercises.map((exercise) => (
+              <option key={exercise} value={exercise}>
+                {exercise}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="rounded-lg border border-gray-200 bg-white px-1 py-4 shadow-lg">
           <div className="mb-2 text-center text-lg font-semibold">
-            Bench Press Reps Over Time
+            {selectedExercise} Reps Over Time
           </div>
           <div className="flex justify-center">
             <svg ref={svgRef}></svg>
+          </div>
+          <div className="mt-4 flex justify-center space-x-6 text-sm">
+            <div className="flex items-center">
+              <div className="mr-2 h-3 w-3 rounded-full bg-red-500"></div>
+              <span>Set 1</span>
+            </div>
+            <div className="flex items-center">
+              <div className="mr-2 h-3 w-3 rounded-full bg-green-500"></div>
+              <span>Set 2</span>
+            </div>
+            <div className="flex items-center">
+              <div className="mr-2 h-3 w-3 rounded-full bg-blue-500"></div>
+              <span>Set 3</span>
+            </div>
           </div>
         </div>
       </div>
