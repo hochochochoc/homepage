@@ -4,12 +4,10 @@
 // use actual days -- done
 // make it possible to change weights and reps -- done
 // history page -- done
-
+// combine plans with calendar -- done
+// make history interactive -- done
 
 // THINGS I WANT TO DO NOW FOR THE FIRST VERSION
 
 
-// combine plans with calendar
-// automatically copy the plan from the same last day
-// make history interactive
 // visual improvement

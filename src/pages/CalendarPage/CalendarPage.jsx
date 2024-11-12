@@ -95,7 +95,7 @@ export default function CalendarPage() {
       };
 
       await workoutService.saveWorkout(user.uid, date, workoutData);
-      alert(`Workout added for ${formatDate(date)}!`);
+
       setWorkout(workoutData);
     } catch (error) {
       console.error("Error adding workout:", error);
@@ -293,7 +293,7 @@ export default function CalendarPage() {
             onClick={addSampleWorkout}
             className="my-6 rounded bg-blue-200 px-4 py-2 text-sm"
           >
-            Add Sample Workout
+            Add Workout Template
           </button>
         </div>
       )}

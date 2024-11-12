@@ -50,6 +50,7 @@ export default function HistoryPage() {
                 set1: parseInt(exercise.sets[0]?.reps) || 0,
                 set2: parseInt(exercise.sets[1]?.reps) || 0,
                 set3: parseInt(exercise.sets[2]?.reps) || 0,
+                weight: exercise.sets[0]?.weight || "0", // Assuming all sets use same weight
               };
             }
             return null;
@@ -96,6 +97,41 @@ export default function HistoryPage() {
       ])
       .range([height, 0]);
 
+    let currentWeight = exerciseData[0].weight;
+    let startDate = exerciseData[0].date;
+
+    exerciseData.forEach((d, i) => {
+      if (d.weight !== currentWeight || i === exerciseData.length - 1) {
+        // Draw weight region
+        svg
+          .append("rect")
+          .attr("x", xScale(startDate))
+          .attr("y", 0)
+          .attr("width", xScale(d.date) - xScale(startDate))
+          .attr("height", height)
+          .attr("fill", "none")
+          .attr("stroke", "#e5e5e5")
+          .attr("stroke-width", 1);
+
+        // Add weight label
+        svg
+          .append("text")
+          .attr(
+            "x",
+            xScale(startDate) + (xScale(d.date) - xScale(startDate)) / 2,
+          )
+          .attr("y", height / 2)
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "middle")
+          .attr("fill", "#e5e5e5")
+          .attr("font-size", "24px")
+          .text(currentWeight + "kg");
+
+        startDate = d.date;
+        currentWeight = d.weight;
+      }
+    });
+
     // Create lines
     const lines = [
       { key: "set1", color: "#ff0000" },
@@ -131,11 +167,9 @@ export default function HistoryPage() {
 
     // Add axes
     const xAxisDays = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%d"));
-
-    // Add the day numbers
     svg.append("g").attr("transform", `translate(0,${height})`).call(xAxisDays);
 
-    // Group dates by month and find center point for each month
+    // Month labels
     const monthGroups = d3.group(xScale.ticks(), (d) =>
       d3.timeFormat("%B %Y")(d),
     );
@@ -144,7 +178,6 @@ export default function HistoryPage() {
       center: d3.mean(dates, (d) => xScale(d)),
     }));
 
-    // Add month labels at calculated center points
     svg
       .append("g")
       .attr("transform", `translate(0,${height + 20})`)
@@ -189,7 +222,7 @@ export default function HistoryPage() {
           <div className="flex justify-center">
             <svg ref={svgRef}></svg>
           </div>
-          <div className="mt-4 flex justify-center space-x-6 text-sm">
+          <div className="flex justify-center space-x-6 text-sm">
             <div className="flex items-center">
               <div className="mr-2 h-3 w-3 rounded-full bg-red-500"></div>
               <span>Set 1</span>
