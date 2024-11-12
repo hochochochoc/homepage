@@ -320,10 +320,10 @@ export default function CalendarPage() {
       )}
       {daySelected === true && !workout && (
         <div className="m-3 text-center text-black">
-          <p>No workout found for this date</p>
+          <p>No workout found for {formatDate(date)}</p>
           <button
             onClick={addSampleWorkout}
-            className="my-6 rounded bg-blue-200 px-4 py-2 text-sm hover:bg-green-600"
+            className="my-6 rounded bg-blue-200 px-4 py-2 text-sm"
           >
             Add Sample Workout
           </button>

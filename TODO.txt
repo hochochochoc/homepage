@@ -2,15 +2,14 @@
 // connect to firebase -- done
 // implement user -- done
 // use actual days -- done
-// make it possible to change weights and reps
-// history page
+// make it possible to change weights and reps -- done
+// history page -- done
 
-pages: 
-    menu
-    user profile (rudimentary)
-    calendar -- done
-    individual days
-    workout plan
-    history
 
-// that's all
+// THINGS I WANT TO DO NOW FOR THE FIRST VERSION
+
+
+// combine plans with calendar
+// automatically copy the plan from the same last day
+// make history interactive
+// visual improvement
