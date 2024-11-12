@@ -130,25 +130,33 @@ export default function HistoryPage() {
     });
 
     // Add axes
-    const xAxisDays = d3
-      .axisBottom(xScale)
-      .tickFormat((date) => d3.timeFormat("%d")(date));
+    const xAxisDays = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%d"));
 
-    // Add the main axis with days
+    // Add the day numbers
     svg.append("g").attr("transform", `translate(0,${height})`).call(xAxisDays);
 
-    // Add just the month labels
+    // Group dates by month and find center point for each month
+    const monthGroups = d3.group(xScale.ticks(), (d) =>
+      d3.timeFormat("%B %Y")(d),
+    );
+    const monthCenters = Array.from(monthGroups, ([month, dates]) => ({
+      month,
+      center: d3.mean(dates, (d) => xScale(d)),
+    }));
+
+    // Add month labels at calculated center points
     svg
       .append("g")
-      .attr("transform", `translate(0,${height + 30})`)
+      .attr("transform", `translate(0,${height + 20})`)
       .selectAll("text")
-      .data(xScale.ticks())
+      .data(monthCenters)
       .enter()
       .append("text")
-      .attr("x", (d) => xScale(d))
+      .attr("x", (d) => d.center)
+      .attr("y", 10)
       .attr("text-anchor", "middle")
       .style("font-size", "10px")
-      .text((d) => d3.timeFormat("%b")(d));
+      .text((d) => d3.timeFormat("%b")(new Date(d.month)));
 
     const yAxis = d3.axisLeft(yScale);
     svg.append("g").call(yAxis);
