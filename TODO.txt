@@ -9,5 +9,4 @@
 
 // THINGS I WANT TO DO NOW FOR THE FIRST VERSION
 
-
 // visual improvement

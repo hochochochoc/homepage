@@ -59,6 +59,7 @@ export default function CalendarPage() {
   const navigate = useNavigate();
   const [date, setDate] = useState(null);
   const { user } = useAuth();
+  const [displayedMonth, setDisplayedMonth] = useState(new Date());
 
   const formatDate = (date) => {
     const day = format(date, "d");
@@ -257,8 +258,9 @@ export default function CalendarPage() {
 
   return (
     <div className="h-screen text-white">
-      <div className="flex items-center justify-between bg-slate-500 p-4 text-2xl">
+      <div className="flex items-center justify-start bg-slate-600 px-4 py-2 text-2xl">
         <ArrowLeft onClick={handleBack} />
+        <h1 className="ml-20"> Calendar </h1>
       </div>
       {daySelected === false && (
         <div className="m-3 flex flex-col space-y-3">
@@ -273,6 +275,9 @@ export default function CalendarPage() {
             }}
             disabled={(date) => isFuture(date)}
             className="rounded-md border"
+            weekStartsOn={1} // 1 for Monday (0 is Sunday)
+            month={displayedMonth}
+            onMonthChange={setDisplayedMonth}
           />
         </div>
       )}

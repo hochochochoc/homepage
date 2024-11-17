@@ -17,8 +17,8 @@ export default function MenuPage() {
   const rows = chunk(headlines, 2);
 
   return (
-    <div className="h-screen bg-blue-200 text-white">
-      <div className="flex items-center justify-center bg-slate-600 p-4 text-2xl">
+    <div className="h-screen bg-blue-50 text-white">
+      <div className="flex items-center justify-center bg-slate-600 px-4 py-2 text-2xl">
         Menu
       </div>
       <div className="m-3 flex flex-col space-y-3">
