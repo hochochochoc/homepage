@@ -115,10 +115,12 @@ const ExerciseDisplay = ({
   ));
 
   return (
-    <div className="m-2 rounded-lg border border-black bg-green-300/20 p-2 text-black shadow-lg">
-      <h2 className="font-bold">{exercise.name}</h2>
-      <p className="ml-2">Weight: {weightDisplay}kg</p>
-      <p className="ml-2">Reps per set: {formatRepsDisplay(exercise.sets)}</p>
+    <div className="border-b border-gray-100 bg-white p-2 px-4">
+      <h2 className="font-bold text-gray-800">{exercise.name}</h2>
+      <p className="mt-2 text-gray-700">Weight: {weightDisplay}kg</p>
+      <p className="mt-1 text-gray-700">
+        Reps per set: {formatRepsDisplay(exercise.sets)}
+      </p>
     </div>
   );
 };
@@ -436,19 +438,22 @@ const PlansPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <p>Loading workout plans...</p>
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+        <p className="text-gray-700">Loading workout plans...</p>
       </div>
     );
   }
 
   return (
-    <div className="h-screen text-black">
-      <div className="flex items-center justify-start bg-slate-600 px-4 py-2 text-2xl text-white">
-        <ArrowLeft onClick={() => navigate("/")} />
-        <h1 className="ml-20"> Plans </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="relative flex items-center bg-gray-700 px-4 py-5 text-white shadow">
+        <ArrowLeft className="cursor-pointer" onClick={() => navigate("/")} />
+        <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
+          Plans
+        </h1>
       </div>
-      <div className="m-3 flex flex-col space-y-3">
+
+      <div className="container mx-auto max-w-2xl p-4">
         {dayOrder.map((day) => {
           const workout = workoutPlans[day.toLowerCase()];
           if (!workout) return null;
@@ -456,25 +461,25 @@ const PlansPage = () => {
           return (
             <div
               key={day}
-              className="rounded-lg border border-black bg-green-300/20 shadow-lg"
+              className="mb-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg"
             >
               <div
                 onClick={() => toggleDay(day)}
-                className="flex cursor-pointer items-center justify-between p-4"
+                className="flex cursor-pointer items-center justify-between bg-white p-4 hover:bg-gray-50"
               >
-                <h2 className="font-bold">
+                <h2 className="text-lg font-semibold text-gray-800">
                   {day} - {workout.type}
                 </h2>
                 {openDay === day ? (
-                  <ChevronUp className="h-5 w-5" />
+                  <ChevronUp className="h-5 w-5 text-gray-600" />
                 ) : (
-                  <ChevronDown className="h-5 w-5" />
+                  <ChevronDown className="h-5 w-5 text-gray-600" />
                 )}
               </div>
               {openDay === day && (
-                <div className="border-t border-gray-200 p-4">
+                <div className="border-t border-gray-200 bg-white p-4">
                   {workout.type === "Rest" ? (
-                    <p className="text-center italic">
+                    <p className="text-center italic text-gray-600">
                       Rest Day - No exercises scheduled
                     </p>
                   ) : (

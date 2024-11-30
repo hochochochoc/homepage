@@ -36,9 +36,11 @@ export default function ProfilePage() {
 
   return (
     <div className="h-screen bg-blue-50">
-      <div className="flex items-center justify-start bg-slate-600 px-4 py-2 text-2xl text-white">
-        <ArrowLeft onClick={() => navigate("/")} />
-        <h1 className="ml-20"> Profile </h1>
+      <div className="relative flex items-center bg-gray-700 px-4 py-5 text-white shadow">
+        <ArrowLeft className="cursor-pointer" onClick={() => navigate("/")} />
+        <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
+          Profile
+        </h1>
       </div>
 
       <div className="mx-auto max-w-md p-6">

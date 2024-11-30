@@ -78,10 +78,7 @@ export default function CalendarPage() {
     if (!user || !date) return;
 
     try {
-      // Get the day name from the date
-      const dayName = format(date, "EEEE"); // Returns full day name (Monday, Tuesday, etc.)
-
-      // Get the plan for that day
+      const dayName = format(date, "EEEE");
       const dayPlan = await planService.getPlan(user.uid, dayName);
 
       if (!dayPlan) {
@@ -89,14 +86,12 @@ export default function CalendarPage() {
         return;
       }
 
-      // Use the plan as the workout data
       const workoutData = {
         type: dayPlan.type,
         exercises: dayPlan.exercises,
       };
 
       await workoutService.saveWorkout(user.uid, date, workoutData);
-
       setWorkout(workoutData);
     } catch (error) {
       console.error("Error adding workout:", error);
@@ -247,23 +242,28 @@ export default function CalendarPage() {
     return (
       <div
         key={exercise.name}
-        className="m-2 rounded-lg border border-black bg-green-300/20 p-2 text-black shadow-lg"
+        className="m-2 rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
       >
-        <h2 className="font-bold">{exercise.name}</h2>
-        <p className="ml-2">Weight: {weightDisplay}kg</p>
-        <p className="ml-2">Reps per set: {formatRepsDisplay(exercise.sets)}</p>
+        <h2 className="font-bold text-gray-800">{exercise.name}</h2>
+        <p className="mt-2 text-gray-700">Weight: {weightDisplay}kg</p>
+        <p className="mt-1 text-gray-700">
+          Reps per set: {formatRepsDisplay(exercise.sets)}
+        </p>
       </div>
     );
   };
 
   return (
-    <div className="h-screen text-white">
-      <div className="flex items-center justify-start bg-slate-600 px-4 py-2 text-2xl">
-        <ArrowLeft onClick={handleBack} />
-        <h1 className="ml-20"> Calendar </h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="relative flex items-center bg-gray-700 px-4 py-5 text-white shadow">
+        <ArrowLeft className="cursor-pointer" onClick={() => navigate("/")} />
+        <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
+          Calendar
+        </h1>
       </div>
+
       {daySelected === false && (
-        <div className="m-3 flex flex-col space-y-3">
+        <div className="container mx-auto max-w-md p-4">
           <Calendar
             mode="single"
             selected={date}
@@ -274,16 +274,17 @@ export default function CalendarPage() {
               }
             }}
             disabled={(date) => isFuture(date)}
-            className="rounded-md border"
-            weekStartsOn={1} // 1 for Monday (0 is Sunday)
+            className="rounded-xl border bg-white shadow-lg"
+            weekStartsOn={1}
             month={displayedMonth}
             onMonthChange={setDisplayedMonth}
           />
         </div>
       )}
+
       {daySelected === true && workout && (
-        <div className="m-3 text-black">
-          <h1 className="my-3 text-center">
+        <div className="container mx-auto max-w-md p-4">
+          <h1 className="mb-4 text-center text-xl font-bold text-gray-800">
             {formatDate(date)} - {workout.type}
           </h1>
           {workout.exercises.map((exercise, index) =>
@@ -291,12 +292,15 @@ export default function CalendarPage() {
           )}
         </div>
       )}
+
       {daySelected === true && !workout && (
-        <div className="m-3 text-center text-black">
-          <p>No workout found for {formatDate(date)}</p>
+        <div className="container mx-auto max-w-md p-4 text-center">
+          <p className="text-gray-700">
+            No workout found for {formatDate(date)}
+          </p>
           <button
             onClick={addSampleWorkout}
-            className="my-6 rounded bg-blue-200 px-4 py-2 text-sm"
+            className="mt-6 rounded-lg bg-gray-700 px-6 py-2 text-sm text-white shadow-md hover:bg-gray-600"
           >
             Add Workout Template
           </button>

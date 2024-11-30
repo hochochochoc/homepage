@@ -24,7 +24,6 @@ export default function UniqueVisitorCard() {
       if (!user) return;
       const workouts = await workoutService.getAllWorkouts(user.uid);
 
-      // Get unique exercise names
       const exerciseNames = new Set();
       workouts.forEach((workout) => {
         if (workout.exercises) {
@@ -36,7 +35,6 @@ export default function UniqueVisitorCard() {
       const sortedExercises = Array.from(exerciseNames).sort();
       setAvailableExercises(sortedExercises);
 
-      // Set default selected exercise if none is selected
       if (!selectedExercise && sortedExercises.length > 0) {
         setSelectedExercise(sortedExercises[0]);
       }
@@ -54,15 +52,24 @@ export default function UniqueVisitorCard() {
         spacing={2}
       >
         <Grid item xs={12} sm={6}>
-          <Typography variant="h5">Exercise Progress</Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <FormControl fullWidth size="small">
             <Select
               value={selectedExercise}
               onChange={(e) => setSelectedExercise(e.target.value)}
               displayEmpty
-              sx={{ minWidth: 120 }}
+              sx={{
+                minWidth: 120,
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#d1d5db",
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#9ca3af",
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#6b7280",
+                },
+              }}
+              className="mt-4"
             >
               {availableExercises.map((exercise) => (
                 <MenuItem key={exercise} value={exercise}>
@@ -73,7 +80,16 @@ export default function UniqueVisitorCard() {
           </FormControl>
         </Grid>
       </Grid>
-      <MainCard content={false} sx={{ mt: 1.5 }}>
+      <MainCard
+        content={false}
+        sx={{
+          mt: 1.5,
+          borderColor: "#e5e7eb",
+          "& .MuiPaper-root": {
+            backgroundColor: "#fff",
+          },
+        }}
+      >
         <Box sx={{ pt: 1, pr: 2 }}>
           <IncomeAreaChart selectedExercise={selectedExercise} />
         </Box>
