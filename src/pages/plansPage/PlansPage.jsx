@@ -365,9 +365,10 @@ const PlansPage = () => {
   const handleUpdateReps = async (day, exerciseIndex, setIndex, newReps) => {
     if (!user) return;
 
+    const dayLower = day.toLowerCase();
     const updatedPlan = {
-      ...workoutPlans[day],
-      exercises: workoutPlans[day].exercises.map((exercise, exIdx) => {
+      ...workoutPlans[dayLower],
+      exercises: workoutPlans[dayLower].exercises.map((exercise, exIdx) => {
         if (exIdx === exerciseIndex) {
           return {
             ...exercise,
@@ -384,10 +385,10 @@ const PlansPage = () => {
     };
 
     try {
-      await planService.savePlan(user.uid, day, updatedPlan);
+      await planService.savePlan(user.uid, dayLower, updatedPlan);
       setWorkoutPlans((prev) => ({
         ...prev,
-        [day]: updatedPlan,
+        [dayLower]: updatedPlan,
       }));
     } catch (error) {
       console.error("Error updating plan:", error);
@@ -403,9 +404,10 @@ const PlansPage = () => {
   ) => {
     if (!user) return;
 
+    const dayLower = day.toLowerCase();
     const updatedPlan = {
-      ...workoutPlans[day],
-      exercises: workoutPlans[day].exercises.map((exercise, exIdx) => {
+      ...workoutPlans[dayLower],
+      exercises: workoutPlans[dayLower].exercises.map((exercise, exIdx) => {
         if (exIdx === exerciseIndex) {
           return {
             ...exercise,
@@ -421,10 +423,10 @@ const PlansPage = () => {
     };
 
     try {
-      await planService.savePlan(user.uid, day, updatedPlan);
+      await planService.savePlan(user.uid, dayLower, updatedPlan);
       setWorkoutPlans((prev) => ({
         ...prev,
-        [day]: updatedPlan,
+        [dayLower]: updatedPlan,
       }));
     } catch (error) {
       console.error("Error updating plan:", error);
