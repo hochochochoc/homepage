@@ -2,15 +2,14 @@
 
 
 // MON
-// Make plans changeable
+// Make plans changeable -- done
 // Show weights in graph -- done
 // Make chart height expand by 2 reps at least -- done
 
 // TUE
-// Go from history to calendar day directly
+// Customize days (eliminate exercise, change order)
 
 // WED
-// Customize days (eliminate exercise, change order)
 // Approve changes from day to plans
 
 //THU
