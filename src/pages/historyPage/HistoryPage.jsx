@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import ProgressAnalysis from "./components/ProgressAnalysis";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import UniqueVisitorCard from "./templateChart/UniqueVisitorCard";
@@ -17,6 +18,7 @@ export default function HistoryPage() {
       <div className="mx-auto max-w-5xl p-3">
         <UniqueVisitorCard />
       </div>
+      <ProgressAnalysis />
     </div>
   );
 }

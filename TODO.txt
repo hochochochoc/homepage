@@ -11,7 +11,7 @@
 
 // WED
 // Approve changes from day to plans -- done
-// split calendar part into components
+// split calendar part into components -- done
 
 //THU
 // History of all changes + green - red, also left out
