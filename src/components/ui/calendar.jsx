@@ -22,10 +22,10 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }) {
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1 flex flex-col items-center",
+        table: " border-collapse space-y-1 flex flex-col items-center",
         head_row: "flex",
         head_cell: "text-black rounded-md w-9 font-normal text-[0.8rem]",
-        row: "flex w-full mt-1",
+        row: "flex  mt-1",
         cell: "h-9 w-9 text-center text-sm p-0 relative rounded-lg focus-within:relative focus-within:z-20",
         day: cn(
           buttonVariants({ variant: "ghost" }),

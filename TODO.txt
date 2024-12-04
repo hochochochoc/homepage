@@ -7,10 +7,11 @@
 // Make chart height expand by 2 reps at least -- done
 
 // TUE
-// Customize days (eliminate exercise, change order)
+// Customize days (eliminate exercise, change order) -- done
 
 // WED
-// Approve changes from day to plans
+// Approve changes from day to plans -- done
+// split calendar part into components
 
 //THU
 // History of all changes + green - red, also left out

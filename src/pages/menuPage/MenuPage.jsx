@@ -25,7 +25,7 @@ export default function MenuPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 pb-4">
       <header className="bg-gray-700 p-4 shadow-md">
         <h1 className="text-center text-2xl font-bold text-white">Menu</h1>
       </header>
