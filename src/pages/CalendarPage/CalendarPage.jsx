@@ -74,7 +74,7 @@ export default function CalendarPage() {
 
   const handleBack = () => {
     if (daySelected === false) {
-      navigate("/");
+      navigate("/menu");
     } else {
       setDaySelected(false);
       setDate(null);

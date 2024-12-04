@@ -117,8 +117,8 @@ const ExerciseDisplay = ({
   return (
     <div className="border-b border-gray-100 bg-white p-2 px-4">
       <h2 className="font-bold text-gray-800">{exercise.name}</h2>
-      <p className="mt-2 text-gray-700">Weight: {weightDisplay}kg</p>
-      <p className="mt-1 text-gray-700">
+      <p className="text- mt-2">Weight: {weightDisplay}kg</p>
+      <p className="text- mt-1">
         Reps per set: {formatRepsDisplay(exercise.sets)}
       </p>
     </div>
@@ -449,7 +449,10 @@ const PlansPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="relative flex items-center bg-gray-700 px-4 py-5 text-white shadow">
-        <ArrowLeft className="cursor-pointer" onClick={() => navigate("/")} />
+        <ArrowLeft
+          className="cursor-pointer"
+          onClick={() => navigate("/menu")}
+        />
         <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
           Plans
         </h1>
