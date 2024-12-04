@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -8,72 +8,104 @@ import {
 } from "react-simple-maps";
 import { geoMercator } from "d3-geo";
 
-const AnimatedDot = React.memo(
-  ({ cityPositions, cityStyle, onProgressChange }) => {
-    const [progress, setProgress] = useState(0);
-
-    useEffect(() => {
-      const interval = setInterval(() => {
-        const now = performance.now();
-        const animationDuration = 6000; // Match the CSS animation duration
-        const currentProgress = (now % animationDuration) / animationDuration;
-
-        setProgress(currentProgress); // Update progress between 0 and 1
-        onProgressChange(currentProgress);
-      }, 100); // Update frequently for smooth fading
-
-      return () => clearInterval(interval);
-    }, [onProgressChange]);
-
-    const containerStyle = {
-      "--sydney-x": `${cityPositions.sydney.x}px`,
-      "--sydney-y": `${cityPositions.sydney.y}px`,
-      "--hcm-x": `${cityPositions.hcmcity.x}px`,
-      "--hcm-y": `${cityPositions.hcmcity.y}px`,
-      "--tokyo-x": `${cityPositions.manila.x}px`,
-      "--tokyo-y": `${cityPositions.manila.y}px`,
-    };
-
-    return (
+const AnimatedDot = React.memo(({ cityPositions, cityStyle, journey }) => {
+  return (
+    <div
+      className="pointer-events-none absolute left-0 top-0 h-full w-full"
+      style={{
+        "--sydney-x": `${cityPositions.sydney.x}px`,
+        "--sydney-y": `${cityPositions.sydney.y}px`,
+        "--hcm-x": `${cityPositions.hcmcity.x}px`,
+        "--hcm-y": `${cityPositions.hcmcity.y}px`,
+        "--tokyo-x": `${cityPositions.tokyo.x}px`,
+        "--tokyo-y": `${cityPositions.tokyo.y}px`,
+      }}
+    >
       <div
-        className="pointer-events-none absolute left-0 top-0 h-full w-full"
-        style={containerStyle}
-      >
-        <div
-          className="animate-travel absolute h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            backgroundColor: "white",
-            ...cityStyle,
-          }}
-        />
-      </div>
-    );
-  },
-);
+        className={`absolute h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full ${journey}`}
+        style={{
+          backgroundColor: "white",
+          ...cityStyle,
+        }}
+      />
+    </div>
+  );
+});
 
 export default function MapPage() {
   const sydneyRef = useRef(null);
   const hcmcityRef = useRef(null);
-  const manilaRef = useRef(null);
+  const tokyoRef = useRef(null);
   const [cityPositions, setCityPositions] = useState({
     sydney: { x: 0, y: 0 },
     hcmcity: { x: 0, y: 0 },
-    manila: { x: 0, y: 0 },
+    tokyo: { x: 0, y: 0 },
   });
+  const [journey, setJourney] = useState("sydney-to-hcm");
 
   useEffect(() => {
-    if (sydneyRef.current && hcmcityRef.current && manilaRef.current) {
+    if (sydneyRef.current && hcmcityRef.current && tokyoRef.current) {
       const sydneyRect = sydneyRef.current.getBoundingClientRect();
       const hcmcityRect = hcmcityRef.current.getBoundingClientRect();
-      const manilaRect = manilaRef.current.getBoundingClientRect();
+      const tokyoRect = tokyoRef.current.getBoundingClientRect();
 
       setCityPositions({
         sydney: { x: sydneyRect.x, y: sydneyRect.y },
         hcmcity: { x: hcmcityRect.x, y: hcmcityRect.y },
-        manila: { x: manilaRect.x, y: manilaRect.y },
+        tokyo: { x: tokyoRect.x, y: tokyoRect.y },
       });
     }
   }, []);
+
+  useEffect(() => {
+    const handleAnimationEnd = () => {
+      if (journey === "sydney-to-hcm") {
+        setJourney("hcm-to-tokyo");
+      } else if (journey === "hcm-to-tokyo") {
+        setJourney("tokyo-to-sydney");
+      } else {
+        setJourney("sydney-to-hcm");
+      }
+    };
+
+    const dot = document.querySelector(".rounded-full");
+    dot?.addEventListener("animationend", handleAnimationEnd);
+
+    return () => {
+      dot?.removeEventListener("animationend", handleAnimationEnd);
+    };
+  }, [journey]);
+
+  const cities = {
+    hcmcity: {
+      coordinates: [106.6297, 10.8231],
+      name: "Ho-Chi-Minh City",
+      country: "Vietnam",
+    },
+    sydney: {
+      coordinates: [151.2099, -33.865143],
+      name: "Sydney",
+      country: "Australia",
+    },
+    tokyo: {
+      coordinates: [139.65, 35.6764],
+      name: "Tokyo",
+      country: "Japan",
+    },
+  };
+
+  const getJourneyText = () => {
+    switch (journey) {
+      case "sydney-to-hcm":
+        return `${cities.sydney.name} (${cities.sydney.country}) - ${cities.hcmcity.name} (${cities.hcmcity.country})`;
+      case "hcm-to-tokyo":
+        return `${cities.hcmcity.name} (${cities.hcmcity.country}) - ${cities.tokyo.name} (${cities.tokyo.country})`;
+      case "tokyo-to-sydney":
+        return `${cities.tokyo.name} (${cities.tokyo.country}) - ${cities.sydney.name} (${cities.sydney.country})`;
+      default:
+        return "";
+    }
+  };
 
   const mapStyles = {
     default: {
@@ -100,21 +132,6 @@ export default function MapPage() {
     },
   };
 
-  const cities = {
-    hcmcity: {
-      coordinates: [106.6297, 10.8231],
-      name: "Ho-Chi-Minh City",
-    },
-    sydney: {
-      coordinates: [151.2099, -33.865143],
-      name: "Sydney",
-    },
-    manila: {
-      coordinates: [139.65, 35.6764],
-      name: "Tokyo",
-    },
-  };
-
   const cityStyle = {
     fill: "#FFF",
     stroke: "#FFF",
@@ -125,9 +142,19 @@ export default function MapPage() {
 
   const projection = geoMercator().center([145, 10]).scale(300);
 
+  const isLocationActive = (cityKey) => {
+    if (cityKey === "sydney")
+      return journey.includes("sydney") || journey.includes("australia");
+    if (cityKey === "hcm")
+      return journey.includes("hcm") || journey.includes("vietnam");
+    if (cityKey === "tokyo")
+      return journey.includes("tokyo") || journey.includes("japan");
+    return false;
+  };
+
   return (
-    <div className="h-screen bg-black">
-      <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-black">
+    <div className="h-screen bg-gray-300">
+      <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-blue-950">
         <div className="mt-8 w-[800px]">
           <ComposableMap projection={projection}>
             <ZoomableGroup>
@@ -140,18 +167,47 @@ export default function MapPage() {
                         geo.properties.name === "Australia" ||
                         geo.properties.name === "Japan",
                     )
-                    .map((geo) => (
-                      <Geography
-                        key={geo.rsmKey}
-                        geography={geo}
-                        style={mapStyles}
-                      />
-                    ))
+                    .map((geo) => {
+                      const country = geo.properties.name;
+                      const isActive =
+                        (country === "Australia" &&
+                          journey.includes("sydney")) ||
+                        (country === "Vietnam" && journey.includes("hcm")) ||
+                        (country === "Japan" && journey.includes("tokyo"));
+
+                      return (
+                        <Geography
+                          key={geo.rsmKey}
+                          geography={geo}
+                          style={{
+                            ...mapStyles,
+                            default: {
+                              ...mapStyles.default,
+                              transition: "opacity 0.8s ease",
+                              opacity: isActive ? 1 : 0.02,
+                            },
+                            hover: {
+                              ...mapStyles.hover,
+                              transition: "opacity 0.8s ease",
+                              opacity: isActive ? 1 : 0,
+                            },
+                          }}
+                        />
+                      );
+                    })
                 }
               </Geographies>
 
               <Marker coordinates={cities.sydney.coordinates}>
-                <circle ref={sydneyRef} r="2" style={cityStyle} />
+                <circle
+                  ref={sydneyRef}
+                  r="2"
+                  style={{
+                    ...cityStyle,
+                    transition: "opacity 0.8s ease",
+                    opacity: isLocationActive("sydney") ? 1 : 0.02,
+                  }}
+                />
                 <text
                   textAnchor="middle"
                   y={-10}
@@ -159,6 +215,8 @@ export default function MapPage() {
                     fill: "#FFF",
                     fontSize: "14px",
                     filter: cityStyle.filter,
+                    transition: "opacity 0.8s ease",
+                    opacity: isLocationActive("sydney") ? 1 : 0.02,
                   }}
                 >
                   Sydney
@@ -166,7 +224,15 @@ export default function MapPage() {
               </Marker>
 
               <Marker coordinates={cities.hcmcity.coordinates}>
-                <circle ref={hcmcityRef} r="2" style={cityStyle} />
+                <circle
+                  ref={hcmcityRef}
+                  r="2"
+                  style={{
+                    ...cityStyle,
+                    transition: "opacity 0.8s ease",
+                    opacity: isLocationActive("hcm") ? 1 : 0.02,
+                  }}
+                />
                 <text
                   textAnchor="middle"
                   y={-10}
@@ -174,14 +240,24 @@ export default function MapPage() {
                     fill: "#FFF",
                     fontSize: "14px",
                     filter: cityStyle.filter,
+                    transition: "opacity 0.8s ease",
+                    opacity: isLocationActive("hcm") ? 1 : 0.02,
                   }}
                 >
                   Ho-Chi-Minh City
                 </text>
               </Marker>
 
-              <Marker coordinates={cities.manila.coordinates}>
-                <circle ref={manilaRef} r="2" style={cityStyle} />
+              <Marker coordinates={cities.tokyo.coordinates}>
+                <circle
+                  ref={tokyoRef}
+                  r="2"
+                  style={{
+                    ...cityStyle,
+                    transition: "opacity 0.8s ease",
+                    opacity: isLocationActive("tokyo") ? 1 : 0,
+                  }}
+                />
                 <text
                   textAnchor="middle"
                   y={-10}
@@ -189,6 +265,8 @@ export default function MapPage() {
                     fill: "#FFF",
                     fontSize: "14px",
                     filter: cityStyle.filter,
+                    transition: "opacity 0.8s ease",
+                    opacity: isLocationActive("tokyo") ? 1 : 0,
                   }}
                 >
                   Tokyo
@@ -197,8 +275,16 @@ export default function MapPage() {
             </ZoomableGroup>
           </ComposableMap>
 
-          <AnimatedDot cityPositions={cityPositions} cityStyle={cityStyle} />
+          <AnimatedDot
+            cityPositions={cityPositions}
+            cityStyle={cityStyle}
+            journey={journey}
+          />
         </div>
+      </div>
+
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 text-lg text-white">
+        <span>{getJourneyText()}</span>
       </div>
     </div>
   );

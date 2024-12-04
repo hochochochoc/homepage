@@ -22,6 +22,7 @@ export default function HistoryPage() {
         <UniqueVisitorCard />
       </div>
       <ProgressAnalysis />
+      <button onClick={() => navigate("/map")}>secret map page</button>
     </div>
   );
 }

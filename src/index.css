@@ -24,30 +24,45 @@
     background: rgba(180, 200, 255, 0.1);
     z-index: -1;
   }
+}
 
-  .animate-travel {
-    animation: travel 3s linear infinite;
+@keyframes sydney-to-hcm {
+  from {
+    transform: translate(var(--sydney-x), var(--sydney-y));
+  }
+  to {
+    transform: translate(var(--hcm-x), var(--hcm-y));
   }
 }
 
-@keyframes travel {
-  0% {
-    transform: translate(var(--sydney-x, 0), var(--sydney-y, 0));
+@keyframes hcm-to-tokyo {
+  from {
+    transform: translate(var(--hcm-x), var(--hcm-y));
   }
-  33% {
-    transform: translate(var(--hcm-x, 0), var(--hcm-y, 0));
-  }
-  66% {
-    transform: translate(var(--tokyo-x, 0), var(--tokyo-y, 0));
-  }
-  100% {
-    transform: translate(var(--sydney-x, 0), var(--sydney-y, 0));
+  to {
+    transform: translate(var(--tokyo-x), var(--tokyo-y));
   }
 }
 
-.animate-travel {
-  animation: travel 6s linear infinite;
-  will-change: transform;
+@keyframes tokyo-to-sydney {
+  from {
+    transform: translate(var(--tokyo-x), var(--tokyo-y));
+  }
+  to {
+    transform: translate(var(--sydney-x), var(--sydney-y));
+  }
+}
+
+.sydney-to-hcm {
+  animation: sydney-to-hcm 2s linear forwards;
+}
+
+.hcm-to-tokyo {
+  animation: hcm-to-tokyo 2s linear forwards;
+}
+
+.tokyo-to-sydney {
+  animation: tokyo-to-sydney 2s linear forwards;
 }
 
 @layer base {
@@ -78,6 +93,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -105,6 +121,7 @@
     --chart-5: 340 75% 55%;
   }
 }
+
 @layer base {
   * {
     @apply border-border;
