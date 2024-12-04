@@ -351,7 +351,7 @@ const DayView = ({
           onClick={addSampleWorkout}
           className="mt-6 rounded-lg bg-gray-700 px-6 py-2 text-sm text-white shadow-md hover:bg-gray-600"
         >
-          Add Workout Template
+          Add Workout
         </button>
       </div>
     );

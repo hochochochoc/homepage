@@ -11,7 +11,7 @@ import FormControl from "@mui/material/FormControl";
 // project import
 import MainCard from "./MainCard";
 import IncomeAreaChart from "./IncomeAreaChart";
-import { Grid2 } from "@mui/material";
+import { Grid } from "@mui/material";
 
 export default function UniqueVisitorCard() {
   const [selectedExercise, setSelectedExercise] = useState("");
@@ -44,13 +44,13 @@ export default function UniqueVisitorCard() {
 
   return (
     <>
-      <Grid2
+      <Grid
         container
         alignItems="center"
         justifyContent="space-between"
         spacing={2}
       >
-        <Grid2 item xs={12} sm={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth size="small">
             <Select
               value={selectedExercise}
@@ -77,8 +77,8 @@ export default function UniqueVisitorCard() {
               ))}
             </Select>
           </FormControl>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
       <MainCard
         content={false}
         sx={{

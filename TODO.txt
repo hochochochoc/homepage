@@ -14,7 +14,7 @@
 // split calendar part into components -- done
 
 //THU
-// History of all changes + green - red, also left out
+// History of all changes + green - red, also left out -- done
 
 // FRI
 // Log in screen on loading
@@ -22,4 +22,4 @@
 
 
 // SAT & SUN
-// Video for youtube
+// Video (just youtube) 

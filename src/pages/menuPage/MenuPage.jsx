@@ -29,7 +29,6 @@ export default function MenuPage() {
       <header className="bg-gray-700 p-4 shadow-md">
         <h1 className="text-center text-2xl font-bold text-white">Menu</h1>
       </header>
-
       <main className="container mx-auto max-w-6xl p-4 md:mt-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {menuItems.map((item) => (

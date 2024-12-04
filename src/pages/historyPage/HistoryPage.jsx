@@ -15,7 +15,7 @@ export default function HistoryPage() {
           History
         </h1>
       </div>
-      <div className="mx-auto max-w-5xl p-3">
+      <div className="mx-auto max-w-6xl p-3">
         <UniqueVisitorCard />
       </div>
       <ProgressAnalysis />

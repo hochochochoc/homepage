@@ -6,13 +6,15 @@ import CalendarPage from "./pages/CalendarPage/CalendarPage.jsx";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import PlansPage from "./pages/plansPage/PlansPage";
 import HistoryPage from "./pages/historyPage/HistoryPage";
+import LandingPage from "./pages/landingPage/LandingPage";
 import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<MenuPage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/menu" element={<MenuPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/plans" element={<PlansPage />} />
