@@ -1,13 +1,10 @@
 import React from "react";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  Marker,
-} from "react-simple-maps";
 import { SparklesCore } from "@/components/ui/sparkles";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
+  const navigate = useNavigate();
+
   return (
     <div className="h-screen bg-black">
       <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-black">

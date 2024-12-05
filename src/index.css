@@ -9,7 +9,8 @@
       0 0 10px rgba(255, 255, 255, 0.7),
       0 0 20px rgba(180, 200, 255, 0.5),
       0 0 30px rgba(150, 170, 255, 0.3),
-      0 0 40px rgba(120, 140, 255, 0.1);
+      0 0 40px rgba(120, 140, 255, 0.1),
+      0 0 50px rgba(120, 140, 255, 0.05);
   }
 
   .glow-effect::before {
@@ -44,9 +45,18 @@
   }
 }
 
-@keyframes tokyo-to-sydney {
+@keyframes tokyo-to-ulan {
   from {
     transform: translate(var(--tokyo-x), var(--tokyo-y));
+  }
+  to {
+    transform: translate(var(--ulan-x), var(--ulan-y));
+  }
+}
+
+@keyframes ulan-to-sydney {
+  from {
+    transform: translate(var(--ulan-x), var(--ulan-y));
   }
   to {
     transform: translate(var(--sydney-x), var(--sydney-y));
@@ -54,15 +64,19 @@
 }
 
 .sydney-to-hcm {
-  animation: sydney-to-hcm 2s linear forwards;
+  animation: sydney-to-hcm var(--sydney-to-hcm-duration) linear forwards;
 }
 
 .hcm-to-tokyo {
-  animation: hcm-to-tokyo 2s linear forwards;
+  animation: hcm-to-tokyo var(--hcm-to-tokyo-duration) linear forwards;
 }
 
-.tokyo-to-sydney {
-  animation: tokyo-to-sydney 2s linear forwards;
+.tokyo-to-ulan {
+  animation: tokyo-to-ulan var(--tokyo-to-ulan-duration) linear forwards;
+}
+
+.ulan-to-sydney {
+  animation: ulan-to-sydney var(--ulan-to-sydney-duration) linear forwards;
 }
 
 @layer base {
