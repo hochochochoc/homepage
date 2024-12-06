@@ -3,8 +3,9 @@ import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { planService } from "@/services/planService";
+import { defaultWorkoutPlans } from "./components/defaultData";
 
-const EditableField = ({ initialValue, onSave }) => {
+const EditableField = ({ initialValue, onSave, type = "number" }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
 
@@ -18,22 +19,31 @@ const EditableField = ({ initialValue, onSave }) => {
   };
 
   const handleSave = () => {
-    const numValue = parseInt(value);
-    if (!isNaN(numValue) && numValue >= 0) {
-      onSave(numValue);
-      setIsEditing(false);
+    if (type === "number") {
+      const numValue = parseInt(value);
+      if (!isNaN(numValue) && numValue >= 0) {
+        onSave(numValue);
+        setIsEditing(false);
+      }
+    } else {
+      if (value.trim()) {
+        onSave(value.trim());
+        setIsEditing(false);
+      }
     }
   };
 
   if (isEditing) {
     return (
       <input
-        type="number"
+        type={type}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
-        className="w-8 rounded border border-gray-300 px-1 text-center text-black focus:outline-none focus:ring focus:ring-blue-300"
+        className={`rounded border border-gray-300 px-1 text-black focus:outline-none focus:ring focus:ring-blue-300 ${
+          type === "number" ? "w-8 text-center" : "w-full"
+        }`}
         autoFocus
       />
     );
@@ -54,6 +64,7 @@ const ExerciseDisplay = ({
   exerciseIndex,
   onUpdateReps,
   onUpdateWeight,
+  onUpdateName,
 }) => {
   const formatRepsDisplay = (sets) => {
     const uniqueWeights = [...new Set(sets.map((set) => set.weight))];
@@ -116,7 +127,13 @@ const ExerciseDisplay = ({
 
   return (
     <div className="border-b border-gray-100 bg-white p-2 px-4">
-      <h2 className="font-bold text-gray-800">{exercise.name}</h2>
+      <h2 className="font-bold text-gray-800">
+        <EditableField
+          initialValue={exercise.name}
+          onSave={(newName) => onUpdateName(exerciseIndex, newName)}
+          type="text"
+        />
+      </h2>
       <p className="text- mt-2">Weight: {weightDisplay}kg</p>
       <p className="text- mt-1">
         Reps per set: {formatRepsDisplay(exercise.sets)}
@@ -142,196 +159,6 @@ const PlansPage = () => {
     "Sunday",
   ];
 
-  const defaultWorkoutPlans = {
-    Monday: {
-      type: "Chest Biceps Core",
-      exercises: [
-        {
-          name: "Incline DB Curls",
-          sets: [
-            { weight: "10", reps: 15 },
-            { weight: "10", reps: 8 },
-            { weight: "10", reps: 7 },
-          ],
-        },
-        {
-          name: "Concentration Curls",
-          sets: [
-            { weight: "12", reps: 11 },
-            { weight: "12", reps: 9 },
-            { weight: "12", reps: 9 },
-          ],
-        },
-        {
-          name: "Bench Press",
-          sets: [
-            { weight: "40", reps: 15 },
-            { weight: "40", reps: 10 },
-            { weight: "40", reps: 8 },
-          ],
-        },
-        {
-          name: "DB Flyes",
-          sets: [
-            { weight: "9", reps: 12 },
-            { weight: "9", reps: 12 },
-            { weight: "9", reps: 12 },
-          ],
-        },
-        {
-          name: "Core",
-          sets: [
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 15 },
-          ],
-        },
-      ],
-    },
-    Tuesday: {
-      type: "Legs",
-      exercises: [
-        {
-          name: "Cube",
-          sets: [
-            { weight: "20", reps: 15 },
-            { weight: "20", reps: 15 },
-          ],
-        },
-        {
-          name: "Leg Machine",
-          sets: [
-            { weight: "60", reps: 20 },
-            { weight: "60", reps: 15 },
-            { weight: "60", reps: 13 },
-          ],
-        },
-        {
-          name: "Calves Machine",
-          sets: [
-            { weight: "60", reps: 25 },
-            { weight: "60", reps: 20 },
-          ],
-        },
-      ],
-    },
-    Wednesday: {
-      type: "Back Triceps Core",
-      exercises: [
-        {
-          name: "Pull-ups",
-          sets: [{ weight: "71", reps: 6 }],
-        },
-        {
-          name: "Rowing Machine",
-          sets: [
-            { weight: "45", reps: 20 },
-            { weight: "45", reps: 15 },
-            { weight: "45", reps: 15 },
-          ],
-        },
-        {
-          name: "Triceps",
-          sets: [
-            { weight: "9", reps: 15 },
-            { weight: "9", reps: 10 },
-            { weight: "9", reps: 10 },
-          ],
-        },
-        {
-          name: "Core",
-          sets: [
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 15 },
-          ],
-        },
-      ],
-    },
-    Thursday: {
-      type: "Chest Biceps",
-      exercises: [
-        {
-          name: "Incline DB Curls",
-          sets: [
-            { weight: "10", reps: 15 },
-            { weight: "10", reps: 8 },
-            { weight: "10", reps: 7 },
-          ],
-        },
-        {
-          name: "Concentration Curls",
-          sets: [
-            { weight: "12", reps: 11 },
-            { weight: "12", reps: 9 },
-            { weight: "12", reps: 9 },
-          ],
-        },
-        {
-          name: "Bench Press",
-          sets: [
-            { weight: "40", reps: 15 },
-            { weight: "40", reps: 10 },
-            { weight: "40", reps: 8 },
-          ],
-        },
-        {
-          name: "DB Flyes",
-          sets: [
-            { weight: "9", reps: 12 },
-            { weight: "9", reps: 12 },
-            { weight: "9", reps: 12 },
-          ],
-        },
-      ],
-    },
-    Friday: {
-      type: "Shoulders Back Core",
-      exercises: [
-        {
-          name: "Overhead Press",
-          sets: [
-            { weight: "22", reps: 16 },
-            { weight: "22", reps: 8 },
-            { weight: "22", reps: 7 },
-          ],
-        },
-        {
-          name: "Cable Shoulders",
-          sets: [
-            { weight: "10", reps: 16 },
-            { weight: "10", reps: 15 },
-            { weight: "10", reps: 14 },
-          ],
-        },
-        {
-          name: "Lat Pulldowns",
-          sets: [
-            { weight: "55", reps: 18 },
-            { weight: "55", reps: 10 },
-            { weight: "55", reps: 8 },
-          ],
-        },
-        {
-          name: "Core",
-          sets: [
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 20 },
-            { weight: "70", reps: 15 },
-          ],
-        },
-      ],
-    },
-    Saturday: {
-      type: "Rest",
-      exercises: [],
-    },
-    Sunday: {
-      type: "Rest",
-      exercises: [],
-    },
-  };
-
   useEffect(() => {
     const loadPlans = async () => {
       if (!user) return;
@@ -340,7 +167,6 @@ const PlansPage = () => {
         setIsLoading(true);
         const savedPlans = await planService.getAllPlans(user.uid);
 
-        // If no saved plans exist, save the default plans
         if (Object.keys(savedPlans).length === 0) {
           await Promise.all(
             Object.entries(defaultWorkoutPlans).map(([day, plan]) =>
@@ -361,6 +187,35 @@ const PlansPage = () => {
 
     loadPlans();
   }, [user]);
+
+  const handleUpdateName = async (day, exerciseIndex, newName) => {
+    if (!user) return;
+
+    const dayLower = day.toLowerCase();
+    const updatedPlan = {
+      ...workoutPlans[dayLower],
+      exercises: workoutPlans[dayLower].exercises.map((exercise, exIdx) => {
+        if (exIdx === exerciseIndex) {
+          return {
+            ...exercise,
+            name: newName,
+          };
+        }
+        return exercise;
+      }),
+    };
+
+    try {
+      await planService.savePlan(user.uid, dayLower, updatedPlan);
+      setWorkoutPlans((prev) => ({
+        ...prev,
+        [dayLower]: updatedPlan,
+      }));
+    } catch (error) {
+      console.error("Error updating plan:", error);
+      alert("Error updating workout plan");
+    }
+  };
 
   const handleUpdateReps = async (day, exerciseIndex, setIndex, newReps) => {
     if (!user) return;
@@ -490,7 +345,7 @@ const PlansPage = () => {
                   ) : (
                     workout.exercises.map((exercise, index) => (
                       <ExerciseDisplay
-                        key={exercise.name}
+                        key={exercise.name + index}
                         exercise={exercise}
                         exerciseIndex={index}
                         onUpdateReps={(exerciseIndex, setIndex, newReps) =>
@@ -508,6 +363,9 @@ const PlansPage = () => {
                             oldWeight,
                             newWeight,
                           )
+                        }
+                        onUpdateName={(exerciseIndex, newName) =>
+                          handleUpdateName(day, exerciseIndex, newName)
                         }
                       />
                     ))
