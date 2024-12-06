@@ -178,6 +178,33 @@ const DayView = ({
     return workoutData;
   };
 
+  const addNewExercise = async () => {
+    if (!user || !date || !workout) return;
+
+    const newExercise = {
+      name: "New Exercise",
+      sets: [
+        { weight: "20", reps: 12 },
+        { weight: "20", reps: 12 },
+        { weight: "20", reps: 12 },
+      ],
+    };
+
+    const updatedWorkout = {
+      ...workout,
+      exercises: [...workout.exercises, newExercise],
+    };
+
+    try {
+      await workoutService.saveWorkout(user.uid, date, updatedWorkout);
+      setWorkout(updatedWorkout);
+      setHasChanges(true);
+    } catch (error) {
+      console.error("Error adding new exercise:", error);
+      alert("Error adding new exercise");
+    }
+  };
+
   const updatePlanWithCurrentValues = async () => {
     if (!user || !date || !workout) return;
 
@@ -406,6 +433,7 @@ const DayView = ({
       updateWeight={updateWeight}
       updateName={updateName}
       updatePlanWithCurrentValues={updatePlanWithCurrentValues}
+      addNewExercise={addNewExercise}
     />
   );
 };

@@ -20,6 +20,7 @@ const WorkoutDisplay = ({
   updateWeight,
   updateName,
   updatePlanWithCurrentValues,
+  addNewExercise,
 }) => {
   if (!workout) return null;
 
@@ -35,6 +36,12 @@ const WorkoutDisplay = ({
         >
           <Settings2 size={16} />
           {isEditMode ? "Done" : "Edit Order"}
+        </button>
+        <button
+          onClick={addNewExercise}
+          className="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-1 text-sm text-gray-700 hover:bg-gray-200"
+        >
+          + Add Exercise
         </button>
       </div>
       <DndContext
