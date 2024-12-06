@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import { Settings2, Save } from "lucide-react";
-import { DndContext, closestCenter } from "@dnd-kit/core";
 import { GripHorizontal, X } from "lucide-react";
 import EditableField from "../EditableField";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-  arrayMove,
-  useSortable,
-} from "@dnd-kit/sortable";
+import { arrayMove, useSortable } from "@dnd-kit/sortable";
 import { CSS as DndCSS } from "@dnd-kit/utilities";
 import WorkoutDisplay from "../WorkoutDisplay";
 import { format } from "date-fns";

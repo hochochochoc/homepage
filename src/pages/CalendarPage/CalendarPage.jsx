@@ -95,8 +95,10 @@ export default function CalendarPage() {
   }, [date, user]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       <ChangePopup show={showSuccess} onClose={() => setShowSuccess(false)} />
+
+      {/* Header */}
       <div className="relative flex items-center bg-gray-700 px-4 py-5 text-white shadow">
         <ArrowLeft className="cursor-pointer" onClick={handleBack} />
         <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-bold">
@@ -104,39 +106,40 @@ export default function CalendarPage() {
         </h1>
       </div>
 
-      {daySelected === false && (
-        <div className="container mx-auto max-w-sm p-4 md:flex">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={(newDate) => {
-              if (newDate) {
-                setDate(newDate);
-                setDaySelected(true);
-              }
-            }}
-            disabled={(date) => isFuture(date)}
-            className="rounded-xl border bg-white shadow-lg"
-            weekStartsOn={1}
-            month={displayedMonth}
-            onMonthChange={setDisplayedMonth}
+      {/* Main Content with padding for dock */}
+      <div className="flex-1 pb-24">
+        {daySelected === false ? (
+          <div className="container mx-auto max-w-sm p-4 md:flex">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={(newDate) => {
+                if (newDate) {
+                  setDate(newDate);
+                  setDaySelected(true);
+                }
+              }}
+              disabled={(date) => isFuture(date)}
+              className="rounded-xl border bg-white shadow-lg"
+              weekStartsOn={1}
+              month={displayedMonth}
+              onMonthChange={setDisplayedMonth}
+            />
+          </div>
+        ) : (
+          <DayView
+            date={date}
+            user={user}
+            workout={workout}
+            setWorkout={setWorkout}
+            formatDate={formatDate}
+            hasChanges={hasChanges}
+            setHasChanges={setHasChanges}
+            setShowSuccess={setShowSuccess}
+            sensors={sensors}
           />
-        </div>
-      )}
-
-      {daySelected === true && (
-        <DayView
-          date={date}
-          user={user}
-          workout={workout}
-          setWorkout={setWorkout}
-          formatDate={formatDate}
-          hasChanges={hasChanges}
-          setHasChanges={setHasChanges}
-          setShowSuccess={setShowSuccess}
-          sensors={sensors}
-        />
-      )}
+        )}
+      </div>
     </div>
   );
 }

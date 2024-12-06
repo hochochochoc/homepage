@@ -1,6 +1,5 @@
-// src/pages/ProfilePage.jsx
 import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Settings, CreditCard, Share, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -35,7 +34,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="h-screen bg-blue-50">
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="relative flex items-center bg-gray-700 px-4 py-5 text-white shadow">
         <ArrowLeft
           className="cursor-pointer"
@@ -46,64 +45,90 @@ export default function ProfilePage() {
         </h1>
       </div>
 
-      <div className="mx-auto max-w-md p-6">
+      <div className="mx-auto w-full max-w-md flex-1 p-4">
         {user ? (
-          <div className="rounded-lg bg-white p-6 shadow-lg">
-            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">
-              Profile
-            </h2>
-            <div className="mb-4">
-              <p className="text-gray-600">Email: {user.email}</p>
-              {user.displayName && (
-                <p className="text-gray-600">Name: {user.displayName}</p>
-              )}
+          <div className="flex h-full flex-col rounded-2xl bg-white shadow-lg">
+            <div className="bg-gray-100 px-6 py-8 text-center">
+              <h2 className="text-xl font-bold text-gray-800">
+                {user.displayName}
+              </h2>
+              <p className="text-gray-600">{user.email}</p>
             </div>
-            <button
-              onClick={logout}
-              className="w-full rounded-lg bg-red-500 py-2 text-white hover:bg-red-600"
-            >
-              Sign Out
-            </button>
+
+            <div className="flex-1 divide-y divide-gray-100">
+              <div className="flex items-center px-6 py-6 hover:bg-gray-50">
+                <Settings className="mr-4 h-5 w-5 text-gray-400" />
+                <span className="font-medium text-gray-700">
+                  Account Settings
+                </span>
+              </div>
+              <div className="flex items-center px-6 py-6 hover:bg-gray-50">
+                <CreditCard className="mr-4 h-5 w-5 text-gray-400" />
+                <span className="font-medium text-gray-700">Subscription</span>
+              </div>
+              <div className="flex items-center px-6 py-6 hover:bg-gray-50">
+                <Share className="mr-4 h-5 w-5 text-gray-400" />
+                <span className="font-medium text-gray-700">
+                  Connected Apps
+                </span>
+              </div>
+              <div className="flex items-center px-6 py-6 hover:bg-gray-50">
+                <Lock className="mr-4 h-5 w-5 text-gray-400" />
+                <span className="font-medium text-gray-700">Privacy</span>
+              </div>
+            </div>
+
+            <div className="mt-auto border-t border-gray-100 p-6">
+              <button
+                onClick={logout}
+                className="w-full rounded-xl bg-gray-200 py-4 font-medium text-gray-700 transition-colors hover:bg-gray-300"
+              >
+                Sign Out
+              </button>
+            </div>
           </div>
         ) : (
-          <div className="rounded-lg bg-white p-6 shadow-lg">
-            <h2 className="mb-4 text-2xl font-bold text-gray-800">
-              {isSignUp ? "Sign Up" : "Login"}
+          <div className="rounded-2xl bg-white p-6 shadow-lg">
+            <h2 className="mb-6 text-center text-2xl font-bold text-gray-800">
+              {isSignUp ? "Create Account" : "Welcome Back"}
             </h2>
 
-            <form onSubmit={handleEmailAuth} className="mb-4 space-y-4">
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border p-2 text-gray-800"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-lg border p-2 text-gray-800"
-                  required
-                />
-              </div>
+            <form onSubmit={handleEmailAuth} className="mb-6 space-y-4">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-xl border border-gray-200 p-3 text-gray-800 focus:border-gray-300 focus:outline-none"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full rounded-xl border border-gray-200 p-3 text-gray-800 focus:border-gray-300 focus:outline-none"
+              />
               {error && <p className="text-sm text-red-500">{error}</p>}
               <button
                 type="submit"
-                className="w-full rounded-lg bg-blue-500 py-2 text-white hover:bg-blue-600"
+                className="w-full rounded-xl bg-gray-200 py-3 font-medium text-gray-700 hover:bg-gray-300"
               >
                 {isSignUp ? "Sign Up" : "Login"}
               </button>
             </form>
 
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="bg-white px-2 text-gray-500">or</span>
+              </div>
+            </div>
+
             <button
               onClick={handleGoogleSignIn}
-              className="mb-4 w-full rounded-lg border border-gray-300 bg-white py-2 text-gray-800 hover:bg-gray-50"
+              className="mb-6 w-full rounded-xl border border-gray-200 bg-white py-3 font-medium text-gray-700 hover:bg-gray-50"
             >
               Continue with Google
             </button>
@@ -112,7 +137,7 @@ export default function ProfilePage() {
               {isSignUp ? "Already have an account?" : "Don't have an account?"}
               <button
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="ml-2 text-blue-500 hover:text-blue-600"
+                className="ml-2 font-medium text-gray-700 hover:text-gray-900"
               >
                 {isSignUp ? "Login" : "Sign Up"}
               </button>
