@@ -23,6 +23,7 @@ const SortableExercise = ({
   onDelete,
   onUpdateReps,
   onUpdateWeight,
+  onUpdateName,
 }) => {
   const {
     attributes,
@@ -78,7 +79,7 @@ const SortableExercise = ({
                   />
                   /
                   <EditableField
-                    initialValue={sets[idx + 1].reps}
+                    initialValue={sets[idx + 1]?.reps}
                     onSave={(newReps) =>
                       onUpdateReps(exerciseIndex, idx + 1, newReps)
                     }
@@ -124,7 +125,13 @@ const SortableExercise = ({
             <GripHorizontal className="h-6 w-6 text-gray-400" />
           </div>
         )}
-        <h2 className="flex-1 font-bold text-gray-800">{exercise.name}</h2>
+        <h2 className="flex-1 font-bold text-gray-800">
+          <EditableField
+            initialValue={exercise.name}
+            onSave={(newName) => onUpdateName(exerciseIndex, newName)}
+            type="text"
+          />
+        </h2>
         {!isEditMode && (
           <button
             onClick={() => onDelete(exerciseIndex)}
@@ -343,6 +350,32 @@ const DayView = ({
     }
   };
 
+  const updateName = async (exerciseIndex, newName) => {
+    if (!user || !date || !workout) return;
+
+    const updatedWorkout = {
+      ...workout,
+      exercises: workout.exercises.map((exercise, exIdx) => {
+        if (exIdx === exerciseIndex) {
+          return {
+            ...exercise,
+            name: newName,
+          };
+        }
+        return exercise;
+      }),
+    };
+
+    try {
+      await workoutService.saveWorkout(user.uid, date, updatedWorkout);
+      const processedWorkout = await handleEmptyWorkout(updatedWorkout);
+      setWorkout(processedWorkout);
+      setHasChanges(true);
+    } catch (error) {
+      console.error("Error updating workout:", error);
+    }
+  };
+
   if (!workout) {
     return (
       <div className="container mx-auto max-w-md p-4 text-center">
@@ -371,6 +404,7 @@ const DayView = ({
       deleteExercise={deleteExercise}
       updateReps={updateReps}
       updateWeight={updateWeight}
+      updateName={updateName}
       updatePlanWithCurrentValues={updatePlanWithCurrentValues}
     />
   );

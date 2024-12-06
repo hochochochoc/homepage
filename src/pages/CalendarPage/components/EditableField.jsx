@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const EditableField = ({ initialValue, onSave }) => {
+const EditableField = ({ initialValue, onSave, type = "number" }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
 
@@ -14,22 +14,31 @@ const EditableField = ({ initialValue, onSave }) => {
   };
 
   const handleSave = () => {
-    const numValue = parseInt(value);
-    if (!isNaN(numValue) && numValue >= 0) {
-      onSave(numValue);
-      setIsEditing(false);
+    if (type === "number") {
+      const numValue = parseInt(value);
+      if (!isNaN(numValue) && numValue >= 0) {
+        onSave(numValue);
+        setIsEditing(false);
+      }
+    } else {
+      if (value.trim()) {
+        onSave(value.trim());
+        setIsEditing(false);
+      }
     }
   };
 
   if (isEditing) {
     return (
       <input
-        type="number"
+        type={type}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onBlur={handleSave}
         onKeyDown={handleKeyDown}
-        className="w-8 rounded border border-gray-300 px-1 text-center text-black focus:outline-none focus:ring focus:ring-blue-300"
+        className={`rounded border border-gray-300 px-1 text-black focus:outline-none focus:ring focus:ring-blue-300 ${
+          type === "number" ? "w-8 text-center" : "w-full"
+        }`}
         autoFocus
       />
     );

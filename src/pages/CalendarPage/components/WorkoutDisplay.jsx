@@ -18,6 +18,7 @@ const WorkoutDisplay = ({
   deleteExercise,
   updateReps,
   updateWeight,
+  updateName,
   updatePlanWithCurrentValues,
 }) => {
   if (!workout) return null;
@@ -55,6 +56,7 @@ const WorkoutDisplay = ({
               onDelete={deleteExercise}
               onUpdateReps={updateReps}
               onUpdateWeight={updateWeight}
+              onUpdateName={updateName}
             />
           ))}
         </SortableContext>
