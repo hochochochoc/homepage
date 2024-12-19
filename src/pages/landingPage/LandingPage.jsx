@@ -18,7 +18,7 @@ export default function LandingPage() {
           particleColor="#FFFFFF"
         />
         <h1 className="glow-effect relative z-20 mb-8 text-center text-4xl font-bold text-white md:text-7xl lg:text-6xl">
-          Welcome to Fitness Tracka
+          Welcome to CS50 Fitness Tracker
         </h1>
         <button
           onClick={() => navigate("/menu")}
