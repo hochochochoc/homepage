@@ -18,7 +18,7 @@ export default function LandingPage() {
   const educationRef = useRef(null);
   const contactRef = useRef(null);
 
-  const scrollToSection =  => {
+  const scrollToSection = (ref) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
