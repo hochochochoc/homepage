@@ -31,7 +31,6 @@ const Header = ({ onSectionClick, sectionRefs }) => {
           />
         </div>
 
-        {/* Desktop Navigation */}
         <ul className="hidden items-center gap-[4vw] text-lg font-bold lg:flex">
           <li>
             <a
