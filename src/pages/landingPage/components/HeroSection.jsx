@@ -43,6 +43,7 @@ const HeroSection = () => {
             Desarrollador Web y Apps
           </motion.h1>
 
+          {/* Mobile Image */}
           <motion.div
             initial="hidden"
             animate="visible"
