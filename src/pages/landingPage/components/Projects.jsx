@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, FolderOpen } from "lucide-react";
+import { ExternalLink, , FolderOpen } from "lucide-react";
 import { ExpandableCardDemo } from "@/components/ui/expandable-card";
 
 const ProjectsSection = () => {
