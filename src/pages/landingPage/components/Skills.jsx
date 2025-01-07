@@ -193,7 +193,7 @@ const SkillsSection = () => {
         </div>
 
         <div className="w-full md:w-1/2">
-          <h3 className="mb-5 text-xl font-semibold text-blue-500 xl:text-2xl">
+          <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
             APIs
           </h3>
           <motion.div
