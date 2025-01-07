@@ -38,7 +38,7 @@ const Footer = ({ onSectionClick, sectionRefs }) => {
             </li>
             <li>
               <div
-                className="cursor-pointer transition-colors hover:text-sky-300"
+                className="cursor-pointer transition-colors hover:text-sky-400"
                 onClick={() => onSectionClick(sectionRefs.skills)}
               >
                 Skills
