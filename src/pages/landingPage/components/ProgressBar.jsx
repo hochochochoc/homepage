@@ -17,7 +17,6 @@ export default function ProgressBar({ scrollContainerRef }) {
       const percent = (scrollTop / scrollHeight) * 100;
       setScrollPercent(percent);
 
-      // Show/hide based on scroll position
       setIsVisible(scrollTop > 40);
     };
 
