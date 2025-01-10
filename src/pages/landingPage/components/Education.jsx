@@ -73,7 +73,7 @@ const EducationSection = () => {
             <motion.div
               key={item.title}
               variants={itemVariants}
-              className="w-2/3 rounded-3xl border border-transparent bg-blue-950 p-4 text-blue-500 shadow-lg transition-colors duration-500 hover:border-blue-500 hover:bg-gradient-to-r hover:from-blue-900 hover:to-cyan-900 hover:text-blue-50 hover:opacity-20"
+              className="w-2/3 rounded-3xl border border-transparent bg-blue-950 p-4 text-blue-400 shadow-lg transition-colors duration-500 hover:border-blue-500 hover:bg-gradient-to-r hover:from-blue-900 hover:to-cyan-900 hover:text-blue-50 hover:opacity-20"
             >
               <div className="flex flex-col justify-center">
                 <h4 className="mb-3 text-center text-xl font-semibold md:text-2xl xl:text-3xl">
