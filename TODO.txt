@@ -20,8 +20,6 @@
 // TODO 13.01.
 
 
-
-//  Upload to Vercel
 //  Effects if time
 //  Commits
 //  README
@@ -30,6 +28,7 @@
 //  Header -- done
 //  My projects Section -- done
 //  Experience Section -- done
+//  Upload to Vercel -- done
 
 
 
