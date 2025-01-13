@@ -70,7 +70,7 @@ const HeroSection = () => {
           <img
             src="/jannik_riegel.jpg"
             alt="jannik_riegel"
-            className="max-h-[400px] w-auto rounded-xl border-[3px] border-blue-900 transition-colors duration-700 hover:border-blue-400"
+            className="max-h-[460px] w-auto rounded-xl border-[3px] border-blue-900 transition-colors duration-700 hover:border-blue-400"
           />
         </div>
       </div>

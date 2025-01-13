@@ -1,5 +1,6 @@
 import React from "react";
 import { GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const EducationSection = () => {
   const education = [
@@ -25,24 +26,53 @@ const EducationSection = () => {
     },
   ];
 
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
     <div className="container mx-auto py-10">
-      <h2 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-        <GraduationCap
-          size={62}
-          strokeWidth={2.5}
-          className="mb-3 mr-2 inline-block text-blue-600"
-        />
-        <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-          Mi Formación
-        </span>
-      </h2>
+      <div className="mb-10">
+        <h2 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+          <GraduationCap
+            size={62}
+            strokeWidth={2.5}
+            className="mb-3 mr-2 inline-block text-blue-600"
+          />
+          <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            Mi Formación
+          </span>
+        </h2>
+      </div>
 
-      <div className="container mx-auto">
+      <motion.div
+        className="container mx-auto"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <div className="flex flex-col items-center justify-center gap-4">
           {education.map((item) => (
-            <div
+            <motion.div
               key={item.title}
+              variants={itemVariants}
               className="w-2/3 rounded-3xl bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:bg-gradient-to-r hover:from-blue-900 hover:to-cyan-900 hover:text-blue-50"
             >
               <div className="flex flex-col justify-center">
@@ -52,10 +82,10 @@ const EducationSection = () => {
                 <p className="mb-3 text-center text-white">{item.date}</p>
                 <p className="text-center text-white">{item.institution}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

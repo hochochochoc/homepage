@@ -1,5 +1,6 @@
 import React from "react";
 import { GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 
 const SkillsSection = () => {
   // Function to handle special case capitalizations
@@ -26,6 +27,26 @@ const SkillsSection = () => {
     return specialCases[skill] || skill;
   };
 
+  const sectionVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
     <div className="container mx-auto py-10">
       <div className="mb-10">
@@ -45,7 +66,13 @@ const SkillsSection = () => {
       <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
         Front-End
       </h3>
-      <div className="container mx-auto">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="container mx-auto"
+      >
         <div className="flex flex-wrap items-center justify-center gap-4">
           {[
             "react",
@@ -58,8 +85,9 @@ const SkillsSection = () => {
             "tailwind",
             "sass",
           ].map((skill) => (
-            <div
+            <motion.div
               key={skill}
+              variants={itemVariants}
               className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
             >
               <div className="flex h-full flex-col justify-between">
@@ -76,17 +104,26 @@ const SkillsSection = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
+      </motion.div>
 
-        <h3 className="mb-5 mt-10 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
-          Back-End
-        </h3>
+      <h3 className="mb-5 mt-10 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
+        Back-End
+      </h3>
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="container mx-auto"
+      >
         <div className="flex flex-wrap items-center justify-center gap-4">
           {["csharp", "nodejs", "sql", "mysql"].map((skill) => (
-            <div
+            <motion.div
               key={skill}
+              variants={itemVariants}
               className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
             >
               <div className="flex h-full flex-col justify-between">
@@ -103,17 +140,26 @@ const SkillsSection = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
+      </motion.div>
 
-        <h3 className="mb-5 mt-10 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
-          Otros
-        </h3>
+      <h3 className="mb-5 mt-10 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
+        Otros
+      </h3>
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="container mx-auto"
+      >
         <div className="flex flex-wrap items-center justify-center gap-4">
           {["git", "github", "jest"].map((skill) => (
-            <div
+            <motion.div
               key={skill}
+              variants={itemVariants}
               className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
             >
               <div className="flex h-full flex-col justify-between">
@@ -130,10 +176,10 @@ const SkillsSection = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
