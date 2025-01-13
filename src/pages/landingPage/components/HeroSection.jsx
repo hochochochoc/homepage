@@ -1,8 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Download } from "lucide-react";
-import { Linkedin } from "lucide-react";
-import { Github } from "lucide-react";
+import { Download, Linkedin, Github } from "lucide-react";
 
 const HeroSection = () => {
   const itemVariants = {
@@ -38,38 +36,41 @@ const HeroSection = () => {
           <motion.h1
             initial="hidden"
             animate="visible"
-            custom={0.8}
+            custom={1.15}
             variants={itemVariants}
             className="mb-6 max-w-2xl bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-5xl font-bold leading-none tracking-tight text-transparent md:text-7xl xl:text-8xl"
           >
             Desarrollador Web y Apps
           </motion.h1>
 
+          {/* Mobile Image */}
           <motion.div
             initial="hidden"
             animate="visible"
             custom={0.2}
             variants={itemVariants}
-            className="hero-image-box my-10 rotate-3 justify-center rounded-xl transition-transform duration-700 hover:rotate-0 lg:col-span-5 lg:mt-0 lg:hidden"
+            className="lg:hidden"
           >
-            <motion.img
-              src="/jannik_riegel.jpg"
-              alt="jannik_riegel"
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 1,
-                type: "tween",
-                delay: 0.2,
-              }}
-              className="max-h-[400px] w-auto rounded-xl border-2 border-blue-900 transition-colors duration-700 hover:border-blue-400"
-            />
+            <div className="hero-image-box my-10 rotate-3 transform transition-all duration-500 hover:rotate-0">
+              <motion.img
+                src="/jannik_riegel.jpg"
+                alt="jannik_riegel"
+                initial={{ opacity: 0, scale: 0.2 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 3,
+                  type: "tween",
+                  delay: 2,
+                }}
+                className="max-h-[400px] w-auto rounded-xl border-2 border-blue-900 transition-colors duration-500 hover:border-blue-400"
+              />
+            </div>
           </motion.div>
 
           <motion.p
             initial="hidden"
             animate="visible"
-            custom={1.15}
+            custom={0.8}
             variants={itemVariants}
             className="mb-6 max-w-2xl font-light text-white md:text-lg lg:mb-10 lg:text-xl"
           >
@@ -91,12 +92,7 @@ const HeroSection = () => {
                 animate="visible"
                 custom={1.2}
                 variants={itemVariants}
-                onClick={() =>
-                  window.open(
-                    "http://localhost:5173/CV_Jannik_Riegel.pdf",
-                    "_blank",
-                  )
-                }
+                onClick={() => window.open("/CV_Jannik_Riegel.pdf", "_blank")}
                 className="btn mr-3 inline-flex items-center justify-center rounded-full border border-blue-600 px-5 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
               >
                 <span className="mr-3">Descargar CV</span>
@@ -114,7 +110,6 @@ const HeroSection = () => {
                     "_blank",
                   )
                 }
-                target="_blank"
                 className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
               >
                 <Linkedin className="h-5 w-5" />
@@ -128,7 +123,6 @@ const HeroSection = () => {
                 onClick={() =>
                   window.open("https://github.com/hochochochoc", "_blank")
                 }
-                target="_blank"
                 className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
               >
                 <Github className="h-5 w-5" />
@@ -137,25 +131,28 @@ const HeroSection = () => {
           </div>
         </div>
 
+        {/* Desktop Image */}
         <motion.div
           initial="hidden"
           animate="visible"
           custom={0.2}
           variants={itemVariants}
-          className="hero-image-box hidden rotate-6 rounded-xl transition-transform duration-700 hover:rotate-0 lg:col-span-5 lg:mt-0 lg:flex"
+          className="hidden lg:col-span-5 lg:block"
         >
-          <motion.img
-            src="/jannik_riegel.jpg"
-            alt="jannik_riegel"
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 1,
-              type: "tween",
-              delay: 0.2,
-            }}
-            className="max-h-[460px] w-auto rounded-xl border-[3px] border-blue-900 transition-colors duration-700 hover:border-blue-400"
-          />
+          <div className="hero-image-box rotate-6 transform transition-all duration-500 hover:rotate-0">
+            <motion.img
+              src="/jannik_riegel.jpg"
+              alt="jannik_riegel"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 1,
+                type: "tween",
+                delay: 0.2,
+              }}
+              className="max-h-[460px] w-auto rounded-xl border-[3px] border-blue-900 transition-colors duration-500 hover:border-blue-400"
+            />
+          </div>
         </motion.div>
       </div>
     </div>

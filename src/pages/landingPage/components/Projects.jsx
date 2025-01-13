@@ -1,6 +1,6 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { ExternalLink, Github, FolderOpen } from "lucide-react";
-
 import { ExpandableCardDemo } from "@/components/ui/expandable-card";
 
 const ProjectsSection = () => {
@@ -63,8 +63,6 @@ const ProjectsSection = () => {
               <a href="https://github.com/hochochochoc/web_scraper_cities">
                 <Github className="h-5 w-5 cursor-pointer hover:text-blue-500" />
               </a>
-
-              {/* <ExternalLink className="h-5 w-5 cursor-pointer hover:text-blue-500" /> */}
             </div>
           </div>
         );
@@ -109,7 +107,6 @@ const ProjectsSection = () => {
       title: "AI Form Assistant",
       src: "/ai_form_assistant.png",
       ctaText: "Ver Más",
-      // ctaLink: "javascript:void(0)",
       content: () => {
         return (
           <div>
@@ -132,7 +129,12 @@ const ProjectsSection = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <h2 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+      <motion.h2
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl"
+      >
         <FolderOpen
           size={48}
           strokeWidth={2.5}
@@ -141,7 +143,7 @@ const ProjectsSection = () => {
         <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
           Mis Proyectos
         </span>
-      </h2>
+      </motion.h2>
 
       <div className="mx-auto">
         <ExpandableCardDemo projectCards={projectCards} />
