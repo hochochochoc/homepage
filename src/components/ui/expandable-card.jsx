@@ -44,17 +44,11 @@ export function ExpandableCardDemo({ projectCards }) {
             <motion.button
               key={`button-${active.title}-${id}`}
               layout
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{
                 opacity: 0,
-                transition: {
-                  duration: 0.05,
-                },
+                transition: { duration: 0.2 },
               }}
               className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-white lg:hidden"
               onClick={() => setActive(null)}
@@ -126,6 +120,21 @@ export function ExpandableCardDemo({ projectCards }) {
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
+            initial={{
+              opacity: 0,
+              x: index % 2 === 0 ? -100 : 100,
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0,
+              transition: {
+                type: "spring",
+                damping: 25,
+                stiffness: 60,
+                delay: index * 0.5,
+              },
+            }}
+            viewport={{ once: true, margin: "-50px" }}
             onClick={() => setActive(card)}
             className="flex cursor-pointer flex-col rounded-xl p-3 hover:bg-blue-900/20 dark:hover:bg-neutral-800"
           >
@@ -162,17 +171,11 @@ export function ExpandableCardDemo({ projectCards }) {
 export const CloseIcon = () => {
   return (
     <motion.svg
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{
         opacity: 0,
-        transition: {
-          duration: 0.05,
-        },
+        transition: { duration: 0.2 },
       }}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
