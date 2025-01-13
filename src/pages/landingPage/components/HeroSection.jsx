@@ -93,7 +93,7 @@ const HeroSection = () => {
                 custom={1.2}
                 variants={itemVariants}
                 onClick={() => window.open("/CV_Jannik_Riegel.pdf", "_blank")}
-                className="btn mr-3 inline-flex items-center justify-center rounded-full border border-blue-600 px-5 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+                className="btn duration-400 mr-3 inline-flex items-center justify-center rounded-full border border-blue-600 px-5 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-blue-600 hover:text-white"
               >
                 <span className="mr-3 text-xs font-semibold md:text-lg md:font-normal">
                   Descargar CV
@@ -112,9 +112,9 @@ const HeroSection = () => {
                     "_blank",
                   )
                 }
-                className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+                className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-blue-600 hover:text-white"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-6 w-6" />
               </motion.button>
 
               <motion.button
@@ -125,9 +125,9 @@ const HeroSection = () => {
                 onClick={() =>
                   window.open("https://github.com/hochochochoc", "_blank")
                 }
-                className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
+                className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-blue-600 hover:text-white"
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-6 w-6" />
               </motion.button>
             </motion.div>
           </div>

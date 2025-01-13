@@ -13,7 +13,7 @@ const ContactSection = () => {
         },
       }}
       viewport={{ once: true }}
-      className="mx-auto mb-20 mt-10 w-full max-w-3xl rounded-3xl bg-blue-950 p-9 text-white shadow-md sm:w-3/4 md:w-2/3 lg:w-1/2"
+      className="mx-auto mb-20 mt-10 w-full max-w-3xl rounded-3xl border border-transparent bg-blue-950 p-9 text-white shadow-md transition-all duration-500 hover:border-blue-500 hover:bg-sky-900 hover:opacity-50 sm:w-3/4 md:w-2/3 lg:w-1/2"
     >
       <div className="container">
         <h4 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
