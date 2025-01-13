@@ -3,15 +3,7 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist",
-        "nodeVersion": "18"
-      }
+      "config": { "distDir": "dist" }
     }
-  ],
-  "build": {
-    "env": {
-      "NODE_VERSION": "18"
-    }
-  }
+  ]
 }
