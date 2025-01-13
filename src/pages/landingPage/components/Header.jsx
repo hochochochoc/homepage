@@ -1,10 +1,26 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Header = ({ onSectionClick, sectionRefs }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header id="navSection" className="bg-gray-900">
+    <motion.header
+      id="navSection"
+      className="bg-gray-900"
+      initial={{
+        opacity: 0,
+        y: -100,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        transition: {
+          type: "tween",
+          duration: 1,
+        },
+      }}
+    >
       <nav className="mx-auto flex items-center justify-between px-4 py-4 text-white md:w-[87%] md:px-0">
         <div>
           <img
@@ -132,7 +148,7 @@ const Header = ({ onSectionClick, sectionRefs }) => {
           </div>
         )}
       </nav>
-    </header>
+    </motion.header>
   );
 };
 
