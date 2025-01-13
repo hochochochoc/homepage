@@ -5,7 +5,7 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist",
-        "nodeVersion": "18",
+        "nodeVersion": "22",
         "installCommand": "npm install --force"
       }
     }
