@@ -136,7 +136,7 @@ export function ExpandableCardDemo({ projectCards }) {
             }}
             viewport={{ once: true, margin: "-50px" }}
             onClick={() => setActive(card)}
-            className="flex cursor-pointer flex-col rounded-xl p-3 hover:bg-blue-900/20 dark:hover:bg-neutral-800"
+            className="flex cursor-pointer flex-col rounded-xl border border-transparent p-3 hover:border-blue-600 hover:bg-blue-900/20 dark:hover:bg-neutral-800"
           >
             <div className="flex w-full flex-col gap-4">
               <motion.div layoutId={`image-${card.title}-${id}`}>
