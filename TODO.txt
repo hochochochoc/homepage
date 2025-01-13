@@ -20,7 +20,7 @@
 // TODO 13.01.
 
 
-//  Effects if time
+//  Effects if time -- done
 //  Commits
 //  README
 
