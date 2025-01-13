@@ -1,11 +1,4 @@
 
-
-
-
-// Experience Section
-// Insert my experiences -- done
-// Update texts
-
 // Skills Section
 // Make each card the same size -- done
 // Make the text appear always at the same height -- done
@@ -27,7 +20,7 @@
 // TODO 13.01.
 
 
-//  Experience Section
+
 //  Upload to Vercel
 //  Effects if time
 //  Commits
@@ -36,7 +29,7 @@
 //  Footer -- done
 //  Header -- done
 //  My projects Section -- done
-
+//  Experience Section -- done
 
 
 
@@ -58,3 +51,7 @@
 
 // Header Section
 // Just create it to begin with -- done
+
+// Experience Section
+// Insert my experiences -- done
+// Update texts -- done
