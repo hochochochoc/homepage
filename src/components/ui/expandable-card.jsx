@@ -98,7 +98,7 @@ export function ExpandableCardDemo({ projectCards }) {
                     exit={{ opacity: 0 }}
                     href={active.ctaLink}
                     target="_blank"
-                    className="rounded-full bg-sky-500 px-4 py-3 text-sm font-bold text-white"
+                    className="flex w-full max-w-24 justify-center rounded-full bg-sky-500 px-4 py-3 text-xs font-bold text-white md:text-sm"
                   >
                     {active.ctaText}
                   </motion.a>

@@ -32,7 +32,7 @@ const EducationSection = () => {
       opacity: 1,
       transition: {
         delayChildren: 0,
-        staggerChildren: 0.1,
+        staggerChildren: 0.4,
       },
     },
   };
@@ -42,7 +42,7 @@ const EducationSection = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.3 },
+      transition: { duration: 0.5 },
     },
   };
 
