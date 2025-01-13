@@ -95,7 +95,9 @@ const HeroSection = () => {
                 onClick={() => window.open("/CV_Jannik_Riegel.pdf", "_blank")}
                 className="btn mr-3 inline-flex items-center justify-center rounded-full border border-blue-600 px-5 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:bg-blue-600 hover:text-white"
               >
-                <span className="mr-3">Descargar CV</span>
+                <span className="mr-3 text-xs font-semibold md:text-lg md:font-normal">
+                  Descargar CV
+                </span>
                 <Download className="h-5 w-5" />
               </motion.button>
 
