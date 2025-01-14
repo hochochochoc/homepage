@@ -130,9 +130,14 @@ const ProjectsSection = () => {
   return (
     <div className="container mx-auto py-10">
       <motion.h2
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{
+          duration: 0.8,
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
+        }}
         className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl"
       >
         <FolderOpen

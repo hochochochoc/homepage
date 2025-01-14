@@ -13,7 +13,7 @@ const ContactSection = () => {
         },
       }}
       viewport={{ once: true }}
-      className="mx-auto mb-20 mt-10 w-full max-w-3xl rounded-3xl border border-transparent bg-blue-950 p-9 text-white shadow-md transition-all duration-500 hover:border-blue-500 hover:bg-sky-900 hover:opacity-50 sm:w-3/4 md:w-2/3 lg:w-1/2"
+      className="mx-auto mb-20 mt-10 w-full max-w-3xl rounded-3xl border border-transparent bg-blue-950 p-9 text-white shadow-lg transition-all duration-500 hover:border-blue-500 hover:bg-gradient-to-r hover:from-blue-900 hover:to-cyan-900 hover:text-blue-50 hover:opacity-20 sm:w-3/4 md:w-2/3 lg:w-1/2"
     >
       <div className="container">
         <h4 className="mb-6 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
@@ -101,33 +101,28 @@ const ContactSection = () => {
             />
           </motion.div>
 
-          <motion.button
-            style={{
-              transform: "none",
-              transition: "none",
-            }}
+          <motion.div
             initial={{
               opacity: 0,
               x: 100,
-              transition: {
-                type: "just",
-              },
             }}
             whileInView={{
               opacity: 1,
               x: 0,
               transition: {
-                type: "just",
                 duration: 0.5,
                 delay: 0.7,
               },
             }}
             viewport={{ once: true }}
-            type="submit"
-            className="rounded-md bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2 font-medium text-white transition-all hover:opacity-90"
           >
-            Enviar mensaje
-          </motion.button>
+            <button
+              type="submit"
+              className="rounded-md bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 bg-[size:200%_100%] bg-[position:0%] px-4 py-2 font-medium text-white transition-[background-position] duration-1000 hover:bg-[position:100%]"
+            >
+              Enviar mensaje
+            </button>
+          </motion.div>
 
           <input type="hidden" name="_next" value="http://localhost:5173" />
           <input type="hidden" name="_captcha" value="false" />

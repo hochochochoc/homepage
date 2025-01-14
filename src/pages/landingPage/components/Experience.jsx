@@ -29,7 +29,7 @@ const ExperienceCard = ({ children, delay = 0 }) => {
           },
         },
       }}
-      className="rounded-3xl bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border hover:border-blue-500 hover:bg-gradient-to-r hover:from-blue-900 hover:to-cyan-900 hover:text-blue-50"
+      className="rounded-3xl border border-transparent bg-blue-950 p-4 text-blue-500 shadow-lg transition-colors duration-500 hover:border-blue-500 hover:bg-gradient-to-r hover:from-blue-900 hover:to-cyan-900 hover:text-blue-50"
     >
       {children}
     </motion.div>
@@ -75,29 +75,29 @@ const ExperienceSection = () => {
                   Desarrollador Front-End
                 </h4>
                 <p className="max-w-none text-[17px] text-white">
-                  🎓 Desarrollo de una plataforma educativa de visualización de
+                  💻 Desarrollo de una plataforma educativa de visualización de
                   problemas de búsqueda de rutas: Diseño e implementación de una
                   herramienta interactiva que permite a los estudiantes explorar
                   y comprender algoritmos de optimización de rutas de manera
-                  visual e intuitiva 🗺️💡.
+                  visual e intuitiva.
                   <br />
                   <br />
-                  🔍 Diseño de mapas interactivos: Creación de interfaces
+                  🗺️ Diseño de mapas interactivos: Creación de interfaces
                   dinámicas que permiten a los usuarios manipular y experimentar
                   con diferentes escenarios de rutas, facilitando el aprendizaje
-                  práctico de conceptos complejos 🌐✨.
+                  práctico de conceptos complejos.
                   <br />
                   <br />
                   📚 Desarrollo de tutoriales paso a paso: Implementación de
                   guías educativas interactivas que ayudan a los estudiantes a
                   comprender los fundamentos de los algoritmos de búsqueda de
                   rutas, utilizando visualizaciones en tiempo real y ejemplos
-                  prácticos 📊🎯.
+                  prácticos.
                   <br />
                   <br />
                   🛠️ Tecnologías: React para la interfaz de usuario, Tailwind
                   CSS para el diseño responsivo, Firebase para el almacenamiento
-                  de datos, y D3.js para visualizaciones avanzadas 💻✨.
+                  de datos, y D3.js para visualizaciones avanzadas.
                 </p>
               </div>
             </div>
@@ -123,11 +123,11 @@ const ExperienceSection = () => {
                 <p className="max-w-none text-[17px] text-white">
                   💧 Evaluación de parámetros hidráulicos y calidad del agua:
                   Análisis y monitoreo de sistemas hídricos mediante modelado
-                  experimental y estudios comparativos 🔍📊.
+                  experimental y estudios comparativos.
                   <br />
                   <br />⚡ Implementación de modelos económicos y regulatorios:
                   Aplicación de normativas vigentes y evaluación de costos en
-                  proyectos hidráulicos 📋💰.
+                  proyectos hidráulicos.
                 </p>
               </div>
             </div>
