@@ -78,7 +78,7 @@ const Header = ({ onSectionClick, sectionRefs }) => {
         <div className="flex items-center gap-4">
           <button
             type="button"
-            className="rounded-full bg-gradient-to-r from-blue-800 to-sky-800 px-4 py-2 text-lg font-semibold text-white transition-opacity hover:opacity-90"
+            className="rounded-full bg-gradient-to-r from-sky-800 via-sky-600 to-sky-800 bg-[size:200%] bg-[position:0%] px-4 py-2 text-lg font-semibold text-white transition-[background-position] duration-1000 hover:bg-[position:100%]"
             onClick={() => onSectionClick(sectionRefs.contacto)}
           >
             Contáctame
