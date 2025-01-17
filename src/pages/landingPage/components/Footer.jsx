@@ -7,7 +7,7 @@ const Footer = ({ onSectionClick, sectionRefs }) => {
             className="rounded-full"
             src="/logos/jannik_riegel_logo.png"
             alt="logo"
-            style={{ maxHeight: "70px" }}
+            style={{ maxHeight: "71px" }}
           />
         </div>
         <div>
