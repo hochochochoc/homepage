@@ -75,7 +75,7 @@ const Header = ({ onSectionClick, sectionRefs }) => {
           </li>
         </ul>
 
-        <div className="flex items-center gap-4">
+        <div className="mr-8 flex items-center">
           <button
             type="button"
             className="rounded-full bg-gradient-to-r from-sky-800 via-sky-600 to-sky-800 bg-[size:200%] bg-[position:0%] px-4 py-2 text-lg font-semibold text-white transition-[background-position] duration-1000 hover:bg-[position:100%]"
