@@ -170,7 +170,7 @@ const SkillsSection = () => {
                 <motion.div
                   key={skill}
                   variants={itemVariants}
-                  className="group h-44 w-32 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
+                  className="group h-44 w-36 rounded-3xl border-2 border-transparent bg-blue-950 p-4 text-blue-500 shadow-md transition-colors duration-500 hover:border-blue-500 hover:bg-blue-500 hover:bg-opacity-20 hover:text-blue-50"
                 >
                   <div className="flex h-full flex-col justify-between">
                     <div className="skill-inner flex flex-col justify-between p-2">
