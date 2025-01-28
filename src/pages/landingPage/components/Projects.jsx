@@ -107,6 +107,7 @@ const ProjectsSection = () => {
       title: "AI Form Assistant",
       src: "/ai_form_assistant.png",
       ctaText: "Ver Más",
+      ctaLink: "https://github.com/hochochochoc/form_app",
       content: () => {
         return (
           <div>
@@ -118,8 +119,14 @@ const ProjectsSection = () => {
               <p className="text-center">***En Desarrollo***</p>
             </p>
             <div className="mt-4 flex gap-3">
-              <Github className="h-5 w-5 cursor-pointer hover:text-blue-500" />
-              <ExternalLink className="h-5 w-5 cursor-pointer hover:text-blue-500" />
+              <a
+                href="https://github.com/hochochochoc/form_app"
+                target="_blank"
+              >
+                <Github className="h-5 w-5 cursor-pointer hover:text-blue-500" />
+              </a>
+
+              {/* <ExternalLink className="h-5 w-5 cursor-pointer hover:text-blue-500" /> */}
             </div>
           </div>
         );
