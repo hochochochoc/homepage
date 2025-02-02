@@ -23,6 +23,7 @@ const SkillsSection = () => {
       google_maps: "Google Maps API",
       openai: "OpenAI API",
       vercel: "Vercel",
+      firebase: "Firebase",
       heroku: "Heroku",
       aws: "AWS",
       redux: "Redux",
@@ -131,7 +132,7 @@ const SkillsSection = () => {
         className="container mx-auto"
       >
         <div className="flex flex-wrap items-center justify-center gap-4">
-          {["csharp", "nodejs", "sql", "mysql"].map((skill) => (
+          {["csharp", "nodejs", "sql", "mysql", "firebase"].map((skill) => (
             <motion.div
               key={skill}
               variants={itemVariants}
