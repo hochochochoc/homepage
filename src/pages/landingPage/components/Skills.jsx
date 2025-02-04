@@ -25,6 +25,7 @@ const SkillsSection = () => {
       heroku: "Heroku",
       aws: "AWS",
       redux: "Redux",
+      figma: "Figma",
       react: "React",
       react_native: "React Native",
       bootstrap: "Bootstrap",
@@ -92,6 +93,7 @@ const SkillsSection = () => {
             "tailwind",
             "sass",
             "redux",
+            "figma",
           ].map((skill) => (
             <motion.div
               key={skill}
