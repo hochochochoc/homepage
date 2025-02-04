@@ -18,6 +18,7 @@ const SkillsSection = () => {
       git: "Git",
       github: "GitHub",
       jest: "Jest",
+      vitest: "Vitest",
       cloud_vision: "Cloud Vision API",
       google_maps: "Google Maps API",
       openai: "OpenAI API",
@@ -156,7 +157,7 @@ const SkillsSection = () => {
       </motion.div>
 
       <div className="mt-10 flex flex-wrap justify-center gap-8">
-        <div className="w-full md:w-2/5">
+        <div className="w-full md:w-1/2">
           <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
             Testing y Control de Versiones
           </h3>
@@ -168,7 +169,7 @@ const SkillsSection = () => {
             className="container mx-auto"
           >
             <div className="flex flex-wrap items-center justify-center gap-4">
-              {["git", "github", "jest"].map((skill) => (
+              {["git", "github", "jest", "vitest"].map((skill) => (
                 <motion.div
                   key={skill}
                   variants={itemVariants}
@@ -194,7 +195,7 @@ const SkillsSection = () => {
           </motion.div>
         </div>
 
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-2/5">
           <h3 className="mb-5 text-center text-xl font-semibold text-blue-500 xl:text-2xl">
             APIs
           </h3>
