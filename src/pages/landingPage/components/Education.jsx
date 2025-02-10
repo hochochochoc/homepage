@@ -11,7 +11,7 @@ const EducationSection = () => {
     },
     {
       title: "Fundamentals of Computer Science",
-      date: "Ago 2023 - Nov 2023 (4 meses)",
+      date: "Nov 2023 - Ene 2024 (3 meses)",
       institution: "Harvard University (en línea)",
     },
     {
