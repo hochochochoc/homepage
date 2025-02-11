@@ -38,7 +38,7 @@ const HeroSection = () => {
             animate="visible"
             custom={1.15}
             variants={itemVariants}
-            className="mb-6 max-w-2xl bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-5xl font-bold leading-none tracking-tight text-transparent md:text-7xl xl:text-8xl"
+            className="mb-6 max-w-2xl bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text pb-3 text-5xl font-bold leading-none tracking-tight text-transparent md:text-7xl xl:text-8xl"
           >
             Desarrollador Web y Apps
           </motion.h1>
