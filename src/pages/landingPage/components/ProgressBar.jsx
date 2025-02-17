@@ -35,7 +35,7 @@ export default function ProgressBar({ scrollContainerRef }) {
 
   return (
     <button
-      className="fixed bottom-5 right-5 mb-2 mr-2 flex h-14 w-14 items-center justify-center rounded-full bg-transparent shadow-lg transition-all lg:mb-16 lg:mr-5"
+      className="fixed bottom-5 right-5 mb-16 mr-0 flex h-14 w-14 items-center justify-center rounded-full bg-transparent shadow-lg transition-all lg:mb-16 lg:mr-5"
       onClick={scrollToTop}
       aria-label="Scroll to Top"
     >

@@ -50,7 +50,7 @@ const HeroSection = () => {
             variants={itemVariants}
             className="lg:hidden"
           >
-            <div className="hero-image-box my-10 rotate-3 transform transition-all duration-500 hover:rotate-0">
+            <div className="hero-image-box my-8 rotate-3 transform transition-all duration-500 hover:rotate-0">
               <motion.img
                 src="/jannik_riegel.jpg"
                 alt="jannik_riegel"
@@ -61,7 +61,7 @@ const HeroSection = () => {
                   type: "tween",
                   delay: 2,
                 }}
-                className="max-h-[400px] w-auto rounded-xl border-2 border-blue-900 transition-colors duration-500 hover:border-blue-400"
+                className="max-h-[240px] w-auto rounded-xl border-2 border-blue-900 transition-colors duration-500 hover:border-blue-400"
               />
             </div>
           </motion.div>
@@ -92,12 +92,12 @@ const HeroSection = () => {
                 custom={1.2}
                 variants={itemVariants}
                 onClick={() => window.open("/CV_Jannik_Riegel.pdf", "_blank")}
-                className="btn duration-400 mr-3 inline-flex items-center justify-center rounded-full border border-blue-600 px-5 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-gradient-to-r hover:from-blue-600 hover:text-white"
+                className="btn duration-400 mr-3 inline-flex items-center justify-center rounded-full border border-blue-600 px-4 py-2.5 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-gradient-to-r hover:from-blue-600 hover:text-white"
               >
-                <span className="mr-3 text-xs font-semibold md:text-lg md:font-normal">
+                <span className="mr-3 text-[15px] font-semibold tracking-tighter md:text-lg md:font-normal">
                   Descargar CV
                 </span>
-                <Download className="h-5 w-5" />
+                <Download className="h-4 w-4 lg:h-5 lg:w-5" />
               </motion.button>
 
               <motion.button
@@ -113,7 +113,7 @@ const HeroSection = () => {
                 }
                 className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-gradient-to-r hover:from-blue-600 hover:text-white"
               >
-                <Linkedin className="h-6 w-6" />
+                <Linkedin className="h-5 w-5 lg:h-6 lg:w-6" />
               </motion.button>
 
               <motion.button
@@ -126,7 +126,7 @@ const HeroSection = () => {
                 }
                 className="mr-3 items-center justify-center rounded-full border border-blue-600 px-3 py-3 text-center text-base font-light text-blue-600 transition-colors duration-500 hover:border-blue-400 hover:bg-gradient-to-r hover:from-blue-600 hover:text-white"
               >
-                <Github className="h-6 w-6" />
+                <Github className="h-5 w-5 lg:h-6 lg:w-6" />
               </motion.button>
             </motion.div>
           </div>
