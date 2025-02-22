@@ -151,7 +151,7 @@ const HeroSection = () => {
                 type: "tween",
                 delay: 0.2,
               }}
-              className="max-h-[460px] w-auto rounded-xl border-[3px] border-blue-900 transition-colors duration-500 hover:border-blue-400"
+              className="max-h-[420px] w-auto rounded-3xl border-[3px] border-blue-900 transition-colors duration-500 hover:border-blue-400"
             />
           </div>
         </motion.div>
