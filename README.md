@@ -1,5 +1,5 @@
-# Homepage personal Jannik Riegel
+## Homepage personal Jannik Riegel
 
-Bienvenidos a mi sitio web personal, un espacio dedicado a mostrar mis proyectos profesionales y habilidades técnicas. Aquí encontrarás una selección de mis trabajos más destacados.
+Hola! Aquí puedes ver mi sitio web personal, que incluye un repaso de mis proyectos profesionales más destacados, así como mi trayectoria profesional y habilidades.
 
-Puedes visitar mi portafolio en: http://jannikriegel.vercel.app/
+Puedes visitarlo en: http://jannikriegel.vercel.app/

@@ -104,7 +104,7 @@ const ProjectsSection = () => {
     },
     {
       description:
-        "React • Next.js • ml5.js • OpenAI API • TypeScript • Tailwind • Node.js • SQL • MySQL • Github • Vercel",
+        "React • OpenAI API • TypeScript • Tailwind • Node.js • SQL • MySQL • Github • Vercel",
       title: "AI Form Assistant",
       src: "/ai_form_assistant.png",
       ctaText: "Ver Más",
@@ -128,6 +128,35 @@ const ProjectsSection = () => {
               </a>
 
               {/* <ExternalLink className="h-5 w-5 cursor-pointer hover:text-blue-500" /> */}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      description:
+        "React • ML5.js • TypeScript • Tailwind • Node.js • SQL • MySQL • Github • Vercel",
+      title: "LetraLingo",
+      src: "/alphabetization.png",
+      ctaText: "Ver Más",
+      ctaLink: "https://github.com/hochochochoc/alphabetization",
+      content: () => {
+        return (
+          <div>
+            <p>
+              Una aplicación diseñada para acompañar la enseñanza del alfabeto a
+              adultos, incorporando módulos de escritura, escucha y lectura.
+              <br />
+              <br />
+              <p className="text-center"></p>
+            </p>
+            <div className="mt-4 flex gap-3">
+              <a
+                href="https://github.com/hochochochoc/alphabetization"
+                target="_blank"
+              >
+                <Github className="h-5 w-5 cursor-pointer hover:text-blue-500" />
+              </a>
             </div>
           </div>
         );
